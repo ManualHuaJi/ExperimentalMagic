@@ -14,7 +14,7 @@ import static mhj.expmm.ExperimentalMagic.*;
  */
 @Mod(modid = MODID, name = NAME, version = VERSION, dependencies = "required-after:thaumcraft@[6.1.BETA19,);", acceptedMinecraftVersions = "1.12.2")
 public class ExperimentalMagic {
-    @SidedProxy(clientSide = "mhj.expmm.client.ClinetProxy", serverSide = "mhj.expmm.client.CommonProxy")
+    @SidedProxy(clientSide = "mhj.expmm.client.ClientProxy", serverSide = "mhj.expmm.common.CommonProxy")
     public static CommonProxy proxy;
     public static final String MODID = "expmm", NAME = "ExperimentalMagic", VERSION = "0.0.1";
 

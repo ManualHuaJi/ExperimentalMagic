@@ -1,6 +1,6 @@
 package mhj.expmm.common;
 
-import net.minecraftforge.fml.common.Mod;
+import mhj.expmm.common.item.foci.FocusEffectFluxErode;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -15,6 +15,7 @@ public class CommonProxy {
 
 
     public void Init(FMLInitializationEvent event) {
+        new FocusEffectFluxErode();
     }
 
 
