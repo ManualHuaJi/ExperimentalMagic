@@ -4,8 +4,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.AttackEntityEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.casters.FocusEffect;
 import thaumcraft.api.casters.Trajectory;
@@ -26,13 +24,14 @@ public class FocusEffectFluxErode extends FocusEffect {
         if (!(target.entityHit == null) && target.entityHit == getPackage().getCaster() && FocusEffectFlux.class.equals(getPackage().getFocusEffects())) {
             EntityLivingBase entity = (EntityLivingBase) target.entityHit;
             for (int i = 0; i < 3; i++) {
-                System.out.print(entity.getName() + "by" + getPackage().getFocusEffects() + "    ");
+                System.out.print(entity.getName() + getPackage().getFocusEffects() + "    ");
             }
 /*
             if (entity.getHealth() <= entity.getMaxHealth() * 0.15) {
 
             }
 */
+
         }
         return false;
     }
@@ -60,6 +59,6 @@ public class FocusEffectFluxErode extends FocusEffect {
 
     @Override
     public String getResearch() {
-        return this.getClass().getName().toUpperCase();
+        return "FOCUSFLUXERODE";
     }
 }

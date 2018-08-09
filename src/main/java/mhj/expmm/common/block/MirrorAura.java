@@ -6,8 +6,8 @@ import net.minecraft.block.material.Material;
 /**
  * @Author: ManualHuaJi
  */
-public class MirrorAura extends Block {
+public class MirrorAura extends BlockEXPMM {
     public MirrorAura(Material blockMaterialIn) {
-        super(Material.GLASS);
+        super(Material.IRON);
     }
 }
