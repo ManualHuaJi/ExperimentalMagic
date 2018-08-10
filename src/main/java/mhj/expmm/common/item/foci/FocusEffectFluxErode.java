@@ -31,7 +31,7 @@ public class FocusEffectFluxErode extends FocusEffect {
 
             }
 */
-
+            return true;
         }
         return false;
     }

@@ -33,7 +33,8 @@ public class BlockLoader {
     @SubscribeEvent
     public static void registerItemBlocks(RegistryEvent.Register<Item> itemRegister) {
         final IForgeRegistry<Item> registry = itemRegister.getRegistry();
-        for (final Block block1:blocks) {
+
+        for (final Block block1 : blocks) {
             final ItemBlock[] items = {
                     new ItemBlock(block1)
             };
@@ -42,7 +43,6 @@ public class BlockLoader {
                 registry.register(item.setRegistryName(item.getUnlocalizedName()));
             }
         }
-
 
 
     }
