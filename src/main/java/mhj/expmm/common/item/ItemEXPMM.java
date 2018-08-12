@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
  */
 public class ItemEXPMM extends Item {
     public ItemEXPMM() {
+
         this.setUnlocalizedName(this.getClass().getName().toLowerCase()).setRegistryName(this.getUnlocalizedName()).setCreativeTab(CreativeTabEXPMM.TAB_EXPMM);
     }
 }

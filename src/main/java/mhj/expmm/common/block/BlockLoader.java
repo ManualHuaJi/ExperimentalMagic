@@ -17,10 +17,7 @@ import static mhj.expmm.common.block.BlocksEXPMM.mirroraura;
 @Mod.EventBusSubscriber(modid = ExperimentalMagic.MODID)
 public class BlockLoader {
 
-    public static final Block blocks[] = {
-            mirroraura
-    };
-
+    public static Block blocks[] = {mirroraura};
 
     @SubscribeEvent
     public static void registerBlcok(RegistryEvent.Register<Block> blockRegister) {

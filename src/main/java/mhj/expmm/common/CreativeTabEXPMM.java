@@ -17,14 +17,8 @@ public class CreativeTabEXPMM extends CreativeTabs {
     }
 
     @Override
-    @Nonnull
-    public ItemStack getIconItemStack() {
-        return new ItemStack(Items.BOOK);
-    }
-
-    @Override
     public ItemStack getTabIconItem() {
-        return this.getIconItemStack();
+        return new ItemStack(Items.BOOK);
     }
 
 }

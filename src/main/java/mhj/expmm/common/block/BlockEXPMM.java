@@ -10,6 +10,7 @@ import net.minecraft.block.material.Material;
 public class BlockEXPMM extends Block {
     public BlockEXPMM(Material materialIn) {
         super(materialIn);
+
         this.setUnlocalizedName(this.getClass().getSimpleName().toLowerCase()).setRegistryName(this.getUnlocalizedName()).setCreativeTab(CreativeTabEXPMM.TAB_EXPMM);
     }
 }

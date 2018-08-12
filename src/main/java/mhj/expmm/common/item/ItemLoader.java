@@ -13,11 +13,9 @@ import thaumcraft.api.casters.FocusEngine;
 /**
  * @Author: ManualHuaJi
  */
-
+@Mod.EventBusSubscriber(modid = ExperimentalMagic.MODID)
 public class ItemLoader {
     public static Item[] items = {};
-
-    ;
 
     @SubscribeEvent
     public static void registerItem(RegistryEvent.Register<Item> itemRegister) {

@@ -7,6 +7,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.research.ResearchCategories;
 
@@ -30,6 +31,7 @@ public class ExperimentalMagic {
     @Mod.EventHandler
     public void Init(FMLInitializationEvent event) {
         ResearchCategories.registerCategory("EXPMM", null, null, new ResourceLocation(ExperimentalMagic.MODID, "textures/misc/expmm.png"), new ResourceLocation(ExperimentalMagic.MODID, "textures/gui/research_back.png"));
+        ThaumcraftApi.registerResearchLocation(new ResourceLocation(MODID, "research/expmm"));
         proxy.Init(event);
 
     }
