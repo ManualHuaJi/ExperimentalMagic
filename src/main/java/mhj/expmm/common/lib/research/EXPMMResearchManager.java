@@ -1,5 +1,7 @@
 package mhj.expmm.common.lib.research;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import thaumcraft.api.research.ResearchEntry;
@@ -7,12 +9,13 @@ import thaumcraft.api.research.ResearchStage;
 import thaumcraft.common.lib.research.ResearchManager;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * @Author: ManualHuaJi
  */
 public class EXPMMResearchManager {
-    public static ResearchEntry addResearch(String key, String name, String category, String icon[], String parents[], String siblings[], ResearchEntry.EnumResearchMeta researchType[], int displayColumn, int displayRow, ItemStack rewardItem[], ResearchStage.Knowledge[] rewardKnow) {
+    public static ResearchEntry addResearch(String key, String name, String category, String icon[], String parents[], String siblings[], ResearchEntry.EnumResearchMeta researchType[], int displayColumn, int displayRow, ItemStack rewardItem[], ResearchStage.Knowledge[] rewardKnow, String text, ResourceLocation recipes[], ItemStack requiredItem[], ItemStack requiredCraft[]) {
         ResearchEntry entry = new ResearchEntry();
         entry.setKey(key);
         entry.setName(name);
@@ -38,13 +41,14 @@ public class EXPMMResearchManager {
         entry.setDisplayRow(displayRow);
         entry.setRewardItem(rewardItem);
         entry.setRewardKnow(rewardKnow);
-
+        ArrayList<ResearchStage> stages = new ArrayList();
+        ResearchStage stage = new ResearchStage();
+        stage.setText(text);
+        stage.setRecipes(recipes);
+        stage.setObtain(requiredItem);
+        stage.setCraft(requiredCraft);
+        entry.setStages((ResearchStage[]) stages.toArray(new ResearchStage[stages.size()]));
         return entry;
-    }
-
-    public EXPMMResearchManager setPages(final ResearchStage... researchStages) {
-
-        return this;
     }
 
 }
