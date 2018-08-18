@@ -1,7 +1,6 @@
 package mhj.expmm.common.lib.research;
 
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thaumcraft.api.research.ResearchAddendum;
 import thaumcraft.api.research.ResearchEntry;
 import thaumcraft.api.research.ResearchStage;
@@ -9,6 +8,7 @@ import thaumcraft.common.lib.research.ResearchManager;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 /**
  * @Author: ManualHuaJi
@@ -25,8 +25,8 @@ public class ResearchObject {
     public ResearchEntry.EnumResearchMeta[] meta;
     public ItemStack[] rewardItem;
     public ResearchStage.Knowledge[] rewardKnow;
-    public ResearchStage[] stages;
-    public ResearchAddendum[] addenda;
+    public ResearchStage[] stages = null;
+    public ResearchAddendum[] addenda = null;
 
     public ResearchObject(String key, String category, String name, int displayColumn, int displayRow) {
         this.key = key;
@@ -67,7 +67,7 @@ public class ResearchObject {
         return this.stages;
     }
 
-    public ResearchObject setStages(ResearchStage... stages) {
+    public ResearchObject setStages(mhj.expmm.common.lib.research.ResearchStage... stages) {
         this.stages = stages;
         return this;
     }
@@ -86,13 +86,46 @@ public class ResearchObject {
     }
 
     public ResearchObject registerResearch() {
+        addResearch(processResearch(this));
+        return this;
+    }
+
+    public static ResearchEntry processResearch(ResearchObject object) {
+        ResearchEntry entry = new ResearchEntry();
+        entry.setKey(object.key);
+        entry.setCategory(object.category);
+        entry.setName(object.name);
+        entry.setIcons(object.icons);
+        entry.setParents(object.parents);
+        entry.setSiblings(object.siblings);
+        entry.setMeta(object.meta);
+        entry.setDisplayColumn(object.displayColumn);
+        entry.setDisplayRow(object.displayRow);
+        entry.setRewardItem(object.rewardItem);
+        entry.setRewardKnow(object.rewardKnow);
+        if (object.getStages() != null) {
+            ArrayList<ResearchStage> stages = new ArrayList();
+            ResearchStage stage = object.getStages()[0];
+            stages.add(stage);
+            entry.setStages((ResearchStage[]) stages.toArray(new ResearchStage[stages.size()]));
+        }
+        if (object.getAddenda() != null) {
+            ArrayList<ResearchAddendum> addenda = new ArrayList();
+            ResearchAddendum addendum = object.getAddenda()[0];
+            addenda.add(addendum);
+            entry.setAddenda(addenda.toArray(new ResearchAddendum[addenda.size()]));
+        }
+        return entry;
+    }
+
+    public static void addResearch(ResearchEntry entry) {
         ResearchManager researchManager = new ResearchManager();
         Method method = null;
         try {
             method = ResearchManager.class.getDeclaredMethod("addResearchToCategory", ResearchEntry.class);
             method.setAccessible(true);
             try {
-                method.invoke(this);
+                method.invoke((ResearchEntry) entry);
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
@@ -102,7 +135,5 @@ public class ResearchObject {
             e.printStackTrace();
         }
 
-        return this;
     }
-
 }

@@ -8,7 +8,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import thaumcraft.api.ThaumcraftApi;
-import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.research.ResearchCategories;
 
 import static mhj.expmm.ExperimentalMagic.*;
@@ -20,7 +19,7 @@ import static mhj.expmm.ExperimentalMagic.*;
 public class ExperimentalMagic {
     @SidedProxy(clientSide = "mhj.expmm.client.ClientProxy", serverSide = "mhj.expmm.common.CommonProxy")
     public static CommonProxy proxy;
-    public static final String MODID = "expmm", NAME = "ExperimentalMagic", VERSION = "0.0.1";
+    public static final String MODID = "expmm", NAME = "ExperimentalMagic", VERSION = "0.0.1", CATEGORY = "EXPMM";
 
 
     @Mod.EventHandler
