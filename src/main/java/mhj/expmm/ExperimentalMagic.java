@@ -7,7 +7,8 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.research.ResearchCategories;
 
 import static mhj.expmm.ExperimentalMagic.*;
@@ -19,7 +20,7 @@ import static mhj.expmm.ExperimentalMagic.*;
 public class ExperimentalMagic {
     @SidedProxy(clientSide = "mhj.expmm.client.ClientProxy", serverSide = "mhj.expmm.common.CommonProxy")
     public static CommonProxy proxy;
-    public static final String MODID = "expmm", NAME = "ExperimentalMagic", VERSION = "0.0.1", CATEGORY = "EXPMM";
+    public static final String MODID = "expmm", NAME = "ExperimentalMagic", VERSION = "0.0.1";
 
 
     @Mod.EventHandler
@@ -29,8 +30,8 @@ public class ExperimentalMagic {
 
     @Mod.EventHandler
     public void Init(FMLInitializationEvent event) {
-        ResearchCategories.registerCategory("EXPMM", null, null, new ResourceLocation(ExperimentalMagic.MODID, "textures/misc/expmm.png"), new ResourceLocation(ExperimentalMagic.MODID, "textures/gui/research_back.png"));
-        ThaumcraftApi.registerResearchLocation(new ResourceLocation(MODID, "research/expmm"));
+        ResearchCategories.registerCategory("EXPMM", null, new AspectList()
+                .add(Aspect.PLANT, 5).add(Aspect.ORDER, 5).add(Aspect.ENTROPY, 5).add(Aspect.AIR, 5).add(Aspect.FIRE, 5).add(Aspect.EARTH, 3).add(Aspect.WATER, 5), new ResourceLocation("thaumcraft", "textures/items/thaumonomicon_cheat.png"), new ResourceLocation("thaumcraft", "textures/gui/gui_research_back_1.jpg"), null);
         proxy.Init(event);
 
     }
