@@ -3,38 +3,41 @@ package mhj.expmm.common.lib.research;
 import net.minecraft.util.ResourceLocation;
 import thaumcraft.api.research.ResearchAddendum;
 
-/**
- * @Author: ManualHuaJi
- */
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 public class ResearchAddenda {
-    private ResearchAddendum entry;
+    private ResearchAddendum entry = new ResearchAddendum();
 
-    public ResearchAddenda() {
-        this.entry = new ResearchAddendum();
+    public static ResearchAddenda start() {
+        return new ResearchAddenda();
     }
 
-
-    public ResearchAddenda setText(final String text) {
-        this.entry.setText(text);
+    public ResearchAddenda setText(String text) {
+        entry.setText(text);
         return this;
     }
 
-    public ResearchAddenda setRecipes(final ResourceLocation... recipes) {
-        this.entry.setRecipes(recipes);
+    public ResearchAddenda setRecipes(String... recipes) {
+        return setRecipes(Arrays.stream(recipes).map(ResourceLocation::new).collect(Collectors.toList()).toArray(new ResourceLocation[0]));
+    }
+
+    public ResearchAddenda setRecipes(ResourceLocation... recipes) {
+        entry.setRecipes(recipes);
         return this;
     }
 
-    public ResearchAddenda setResearch(final String... research) {
-        this.entry.setResearch(research);
+    public ResearchAddenda setResearch(String... research) {
+        entry.setResearch(research);
         return this;
     }
 
-    public ResearchAddendum build() {
-        if (this.entry == null) {
+    public ResearchAddendum registerResearchAddenda() {
+        if (entry == null) {
             throw new IllegalStateException("Already built!");
         }
-        final ResearchAddendum re = this.entry;
-        this.entry = null;
+        ResearchAddendum re = entry;
+        entry = null;
         return re;
     }
 }

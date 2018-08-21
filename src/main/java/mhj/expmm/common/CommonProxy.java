@@ -1,7 +1,6 @@
 package mhj.expmm.common;
 
 import mhj.expmm.common.item.ItemLoader;
-import mhj.expmm.common.lib.research.ResearchLoader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -18,7 +17,7 @@ public class CommonProxy {
     public void Init(FMLInitializationEvent event) {
         ItemLoader.init();
 
-        ResearchLoader.init();
+
     }
 
 
