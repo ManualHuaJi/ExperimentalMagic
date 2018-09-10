@@ -6,5 +6,6 @@ import net.minecraft.block.material.Material;
  * @Author: ManualHuaJi
  */
 public class BlocksEXPMM {
-    public static BlockEXPMM mirroraura = new MirrorAura(Material.IRON);
+    public static BlockEXPMM mirrorAura = new MirrorAura(Material.IRON);
+    public static BlockEXPMM referenceBookshelf = new ReferenceBookShelf(Material.WOOD);
 }

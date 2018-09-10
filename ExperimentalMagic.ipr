@@ -17,6 +17,9 @@
   <component name="DependencyValidationManager">
     <option name="SKIP_IMPORT_STATEMENTS" value="false" />
   </component>
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
   <component name="EntryPointsManager">
     <list size="3">
       <item index="0" class="java.lang.String" itemvalue="net.minecraftforge.fml.common.Mod" />
@@ -63,7 +66,7 @@
         <option name="IGNORE_JAVADOC_PERIOD" value="true" />
         <option name="IGNORE_DUPLICATED_THROWS" value="false" />
         <option name="IGNORE_POINT_TO_ITSELF" value="false" />
-        <option name="myAdditionalJavadocTags" value="date" />
+        <option name="myAdditionalJavadocTags" value="date,Au" />
       </inspection_tool>
     </profile>
     <version value="1.0" />
@@ -211,19 +214,17 @@
       <module fileurl="file://$PROJECT_DIR$/ExperimentalMagic.iml" filepath="$PROJECT_DIR$/ExperimentalMagic.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="SvnBranchConfigurationManager">
     <option name="mySupportsUserInfoFilter" value="true" />
   </component>
-  <component name="VcsDirectoryMappings">
-    <mapping directory="" vcs="Git" />
-  </component>
   <component name="libraryTable">
-    <library name="Thaumcraft-1.12.2-6.1.BETA20-deobf">
+    <library name="Baubles-1.12-1.5.2">
       <CLASSES>
-        <root url="jar://$PROJECT_DIR$/libs/Thaumcraft-1.12.2-6.1.BETA20-deobf.jar!/" />
+        <root url="jar://$PROJECT_DIR$/libs/Baubles-1.12-1.5.2.jar!/" />
+        <root url="jar://$PROJECT_DIR$/libs/Thaumcraft-1.12.2-6.1.BETA24-deobf.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />

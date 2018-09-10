@@ -1,6 +1,7 @@
 package mhj.expmm.common.block;
 
 import mhj.expmm.ExperimentalMagic;
+import mhj.expmm.common.tile.TileEntityLoader;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -9,7 +10,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 
-import static mhj.expmm.common.block.BlocksEXPMM.mirroraura;
+import static mhj.expmm.common.block.BlocksEXPMM.mirrorAura;
+import static mhj.expmm.common.block.BlocksEXPMM.referenceBookshelf;
 
 /**
  * @Author: ManualHuaJi
@@ -17,7 +19,7 @@ import static mhj.expmm.common.block.BlocksEXPMM.mirroraura;
 @Mod.EventBusSubscriber(modid = ExperimentalMagic.MODID)
 public class BlockLoader {
 
-    public static Block blocks[] = {mirroraura};
+    public static Block blocks[] = {mirrorAura, referenceBookshelf};
 
     @SubscribeEvent
     public static void registerBlcok(RegistryEvent.Register<Block> blockRegister) {
@@ -25,6 +27,7 @@ public class BlockLoader {
         for (final Block block : blocks) {
             br.register(block);
         }
+        TileEntityLoader.registerTileEntities();
     }
 
     @SubscribeEvent

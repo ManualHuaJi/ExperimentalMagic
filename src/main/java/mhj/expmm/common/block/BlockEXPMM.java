@@ -7,10 +7,9 @@ import net.minecraft.block.material.Material;
 /**
  * @Author: ManualHuaJi
  */
-public class BlockEXPMM extends Block {
+public abstract class BlockEXPMM extends Block {
     public BlockEXPMM(Material materialIn) {
         super(materialIn);
-
         this.setUnlocalizedName(this.getClass().getSimpleName().toLowerCase()).setRegistryName(this.getUnlocalizedName()).setCreativeTab(CreativeTabEXPMM.TAB_EXPMM);
     }
 }

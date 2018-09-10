@@ -1,6 +1,7 @@
 package mhj.expmm;
 
 import mhj.expmm.common.CommonProxy;
+import mhj.expmm.common.command.CommandEXPMM;
 import mhj.expmm.common.lib.research.ResearchLoader;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -9,6 +10,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchCategory;
@@ -25,9 +27,12 @@ public class ExperimentalMagic {
     public static final String MODID = "expmm", NAME = "ExperimentalMagic", VERSION = "0.0.1";
     public static ResearchCategory EXPMM;
 
+    @Mod.Instance(MODID)
+    public static ExperimentalMagic instance;
+
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        MinecraftForge.EVENT_BUS.register((Object) new ResearchLoader());
+        MinecraftForge.EVENT_BUS.register(new ResearchLoader());
         ResearchLoader.clInit.call();
         proxy.preInit(event);
     }
@@ -43,5 +48,10 @@ public class ExperimentalMagic {
     public void postInit(FMLPostInitializationEvent event) {
         proxy.postInit(event);
         ResearchLoader.init.call();
+    }
+    @Mod.EventHandler
+    public void severStarting(FMLServerStartingEvent event)
+    {
+        event.registerServerCommand(new CommandEXPMM());
     }
 }

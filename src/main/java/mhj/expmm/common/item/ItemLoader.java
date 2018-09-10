@@ -10,12 +10,17 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 import thaumcraft.api.casters.FocusEngine;
 
+import static mhj.expmm.common.item.ItemsEXPMM.itemNoteBook;
+import static mhj.expmm.common.item.ItemsEXPMM.itemReference;
+
 /**
  * @Author: ManualHuaJi
  */
 @Mod.EventBusSubscriber(modid = ExperimentalMagic.MODID)
 public class ItemLoader {
-    public static Item[] items = {};
+    public static Item[] items = {
+            itemReference, itemNoteBook
+    };
 
     @SubscribeEvent
     public static void registerItem(RegistryEvent.Register<Item> itemRegister) {

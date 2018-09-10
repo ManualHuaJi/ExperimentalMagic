@@ -6,9 +6,8 @@ import net.minecraft.item.Item;
 /**
  * @Author: ManualHuaJi
  */
-public class ItemEXPMM extends Item {
+public abstract class ItemEXPMM extends Item {
     public ItemEXPMM() {
-
-        this.setUnlocalizedName(this.getClass().getName().toLowerCase()).setRegistryName(this.getUnlocalizedName()).setCreativeTab(CreativeTabEXPMM.TAB_EXPMM);
+        this.setUnlocalizedName(this.getClass().getSimpleName().toLowerCase()).setRegistryName(this.getUnlocalizedName()).setCreativeTab(CreativeTabEXPMM.TAB_EXPMM);
     }
 }
