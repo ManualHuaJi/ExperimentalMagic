@@ -39,7 +39,7 @@
                 {
                     "text": "research.example.text.stage.1",  /* REQUIRED; the text that will be displayed on this page. */
                     "recipes": ["A_RECIPE","ANOTHER_RECIPE"],  /* list of recipes to display on page. The name must have an entry in the thaumcraft recipe catalog */
-                    "required_research":["RESEARCH_YOU_NEED"] /* follows similar logic to parent research. You can specify things that are not full blown research entries in their own right. In that case a ? will be shown instead of their icon and you will have to add localization in the format "research.RESEARCH_YOU_NEED.text" if you want a proper name to be shown. Some other icons are also possible. Starting the research with "m_" will show a map, "f_" a flask and "c_" a chest.
+                    "required_research":["RESEARCH_YOU_NEED"] }/* follows similar logic to parent research. You can specify things that are not full blown research entries in their own right. In that case a ? will be shown instead of their icon and you will have to add localization in the format "research.RESEARCH_YOU_NEED.text" if you want a proper name to be shown. Some other icons are also possible. Starting the research with "m_" will show a map, "f_" a flask and "c_" a chest.
                 }
             ]
         },

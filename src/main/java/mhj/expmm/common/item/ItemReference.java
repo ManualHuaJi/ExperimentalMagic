@@ -1,5 +1,6 @@
 package mhj.expmm.common.item;
 
+import mhj.expmm.common.CreativeTabEXPMM;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -9,24 +10,32 @@ import net.minecraft.util.NonNullList;
  */
 public class ItemReference extends ItemEXPMM {
     public ItemReference() {
+        super("reference");
         this.setHasSubtypes(true);
     }
 
-    public enum ReferenceTypes {
-        base, auromancy, alchemy, artifice, infusion, golemancy, eldritch
-    }
-
+    public String[] ReferenceTypes =
+            new String[]
+                    {
+                            "basics", "auromancy", "alchemy", "artifice", "infusion", "golemancy", "eldritch"
+                    };
 
     @Override
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-        for (int i = 0; i < ReferenceTypes.values().length; i++) {
-            items.add(new ItemStack(this, 1, i));
+        if ((tab == CreativeTabEXPMM.TAB_EXPMM) || (tab == CreativeTabs.SEARCH)) {
+            if (!getHasSubtypes()) {
+                super.getSubItems(tab, items);
+            } else {
+                for (int meta = 0; meta < ReferenceTypes.length; meta++) {
+                    items.add(new ItemStack(this, 1, meta));
+                }
+            }
         }
+    }
 
-    }
     @Override
-    public String getItemStackDisplayName(ItemStack stack)
-    {
-        return super.getUnlocalizedName(stack)+ "." + ReferenceTypes.values()[stack.getMetadata()];
+    public String getUnlocalizedName(ItemStack stack) {
+        return String.format(super.getUnlocalizedName() + ".%s", new Object[]{this.ReferenceTypes[stack.getMetadata()]});
     }
+
 }

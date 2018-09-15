@@ -11,8 +11,8 @@ import javax.annotation.Nullable;
  * @Author: ManualHuaJi
  */
 public class BlockEXPMMTile extends BlockEXPMM implements ITileEntityProvider {
-    public BlockEXPMMTile(Material material) {
-        super(material);
+    public BlockEXPMMTile(Material material,String name) {
+        super(material,name);
 
     }
 

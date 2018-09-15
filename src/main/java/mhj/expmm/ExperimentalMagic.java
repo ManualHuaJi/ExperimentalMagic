@@ -20,7 +20,7 @@ import static mhj.expmm.ExperimentalMagic.*;
 /**
  * @Author: ManualHuaJi
  */
-@Mod(modid = MODID, name = NAME, version = VERSION, dependencies = "required-after:thaumcraft@[6.1.BETA20,);", acceptedMinecraftVersions = "1.12.2")
+@Mod(modid = MODID, name = NAME, version = VERSION, dependencies = "required-after:thaumcraft@[6.1.BETA23,);", acceptedMinecraftVersions = "1.12.2")
 public class ExperimentalMagic {
     @SidedProxy(clientSide = "mhj.expmm.client.ClientProxy", serverSide = "mhj.expmm.common.CommonProxy")
     public static CommonProxy proxy;

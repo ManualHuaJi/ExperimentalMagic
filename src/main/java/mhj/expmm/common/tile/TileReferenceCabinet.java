@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
 /**
  * @Author: ManualHuaJi
  */
-public class TileReferenceBookshelf extends TileEntity implements IItemHandler {
+public class TileReferenceCabinet extends TileEntity implements IItemHandler {
     @Override
     public int getSlots() {
         return 0;

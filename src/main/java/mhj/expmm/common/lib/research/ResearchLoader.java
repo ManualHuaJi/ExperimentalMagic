@@ -1,6 +1,9 @@
 package mhj.expmm.common.lib.research;
 
 import mhj.expmm.ExperimentalMagic;
+import mhj.expmm.common.block.ReferenceCabinet;
+import mhj.expmm.common.lib.research.theorycraft.*;
+import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.CommandEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -8,6 +11,7 @@ import thaumcraft.api.capabilities.IPlayerKnowledge;
 import thaumcraft.api.items.ItemsTC;
 import thaumcraft.api.research.ResearchEntry;
 import thaumcraft.api.research.ResearchStage;
+import thaumcraft.api.research.theorycraft.TheorycraftManager;
 import thaumcraft.common.lib.CommandThaumcraft;
 import thaumcraft.common.lib.research.ResearchManager;
 
@@ -20,21 +24,20 @@ public class ResearchLoader {
     public static final OnetimeCaller init = new OnetimeCaller(ResearchLoader::$init);
     public static final OnetimeCaller clInit = new OnetimeCaller(ResearchLoader::$);
 
-    @SubscribeEvent
-    public void commandEvent(final CommandEvent ce) {
-        if (ce.getCommand() instanceof CommandThaumcraft && ce.getParameters().length > 0 && ce.getParameters()[0].equalsIgnoreCase("reload")) {
-            new Thread(() -> {
-                while (ExperimentalMagic.EXPMM.research.containsKey("EXPMMFIRST")) {
-                    try {
-                        Thread.sleep(10L);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
-        }
+    public static void init() {
+        initCard();
     }
 
+    public static Class[] card = {
+            CardGlimpse.class, CardIgnore.class, CardMemoryFlash.class, CardPractice.class, CardRomeRoad.class, CardSnooze.class, CardWhirling.class
+    };
+
+    public static void initCard() {
+        TheorycraftManager.registerAid(new ReferenceCabinet(Material.WOOD));
+        for (Class cardclass : card) {
+            TheorycraftManager.registerCard(cardclass);
+        }
+    }
 
     public static void $init() {
         new RI().setBaseInfo("EXPMMFIRST", "expmmfisrt", 0, 0)
@@ -71,6 +74,21 @@ public class ResearchLoader {
         }
     }
 
+    @SubscribeEvent
+    public void commandEvent(final CommandEvent ce) {
+        if (ce.getCommand() instanceof CommandThaumcraft && ce.getParameters().length > 0 && ce.getParameters()[0].equalsIgnoreCase("reload")) {
+            new Thread(() -> {
+                while (ExperimentalMagic.EXPMM.research.containsKey("EXPMMFIRST")) {
+                    try {
+                        Thread.sleep(10L);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        }
+    }
+
     private static Method addResearchToCategory = null;
 
     public static void addResearchToCategory(ResearchEntry ri) {
@@ -92,4 +110,6 @@ public class ResearchLoader {
 
     private static void $() {
     }
+
+
 }

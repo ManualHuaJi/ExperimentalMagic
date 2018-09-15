@@ -1,6 +1,7 @@
 package mhj.expmm.client.gui;
 
 import mhj.expmm.ExperimentalMagic;
+import mhj.expmm.common.container.ContainerNoteBook;
 import mhj.expmm.common.container.ContainerReferenceBookshelf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
@@ -25,7 +26,8 @@ public class GuiLoader implements IGuiHandler {
         switch (ID) {
             case 0:
                 return new ContainerReferenceBookshelf();
-
+            case 1:
+                return new ContainerNoteBook();
             default:
                 return null;
         }
@@ -36,7 +38,9 @@ public class GuiLoader implements IGuiHandler {
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         switch (ID) {
             case 0:
-                new GuiReferenceBookShelf(new ContainerReferenceBookshelf());
+                return new GuiReferenceBookShelf(new ContainerReferenceBookshelf());
+            case 1:
+                return new GuiNoteBook(new ContainerNoteBook());
             default:
                 return null;
         }

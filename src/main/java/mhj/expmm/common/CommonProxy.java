@@ -2,6 +2,7 @@ package mhj.expmm.common;
 
 import mhj.expmm.client.gui.GuiLoader;
 import mhj.expmm.common.item.ItemLoader;
+import mhj.expmm.common.lib.research.ResearchLoader;
 import mhj.expmm.common.tile.TileEntityLoader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -18,6 +19,7 @@ public class CommonProxy {
 
     public void Init(FMLInitializationEvent event) {
         ItemLoader.init();
+        ResearchLoader.init();
         new GuiLoader();
 
     }
