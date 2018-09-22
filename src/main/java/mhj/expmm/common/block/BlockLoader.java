@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import static mhj.expmm.common.block.BlocksEXPMM.mirrorAura;
-import static mhj.expmm.common.block.BlocksEXPMM.referenceCabinet;
+import static mhj.expmm.common.block.BlocksEXPMM.referenceBookcase;
 
 /**
  * @Author: ManualHuaJi
@@ -19,7 +19,7 @@ import static mhj.expmm.common.block.BlocksEXPMM.referenceCabinet;
 @Mod.EventBusSubscriber(modid = ExperimentalMagic.MODID)
 public class BlockLoader {
 
-    public static Block blocks[] = {mirrorAura, referenceCabinet};
+    public static Block blocks[] = {mirrorAura, referenceBookcase};
 
     @SubscribeEvent
     public static void registerBlcok(RegistryEvent.Register<Block> blockRegister) {

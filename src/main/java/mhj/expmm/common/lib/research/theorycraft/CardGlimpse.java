@@ -62,7 +62,7 @@ public class CardGlimpse extends TheorycraftCard {
         }
         this.cat = hKey;
         this.amt = (10 + hVal / 2);
-        return true;
+        return data.inspiration < 3;
     }
 
     @Override
@@ -74,8 +74,14 @@ public class CardGlimpse extends TheorycraftCard {
 
     @Override
     public boolean activate(EntityPlayer player, ResearchTableData data) {
+        int ins = MathHelper.floor(1 + Math.random() * 5);
         data.addTotal(this.cat, this.amt);
-        data.addInspiration(MathHelper.floor(1 + Math.random() * 5));
+        if (ins < data.inspiration - 2) {
+            data.addInspiration(ins);
+        } else {
+            data.addInspiration(2);
+        }
+
         return true;
     }
 

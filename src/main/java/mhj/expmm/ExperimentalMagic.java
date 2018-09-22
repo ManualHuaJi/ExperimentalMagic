@@ -39,7 +39,7 @@ public class ExperimentalMagic {
 
     @Mod.EventHandler
     public void Init(FMLInitializationEvent event) {
-        EXPMM = ResearchCategories.registerCategory("EXPMM", (String) null, (AspectList) null, new ResourceLocation("thaumcraft", "textures/items/thaumonomicon_cheat.png"), new ResourceLocation("thaumcraft", "textures/gui/gui_research_back_1.jpg"), null);
+        EXPMM = ResearchCategories.registerCategory("EXPMM", (String) null, (AspectList) null, new ResourceLocation("expmm", "texture/misc/cat.png"), new ResourceLocation("thaumcraft", "textures/gui/gui_research_back_1.jpg"), null);
         ResearchLoader.$init();
         proxy.Init(event);
     }

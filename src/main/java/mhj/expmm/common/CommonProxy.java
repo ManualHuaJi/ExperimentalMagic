@@ -1,6 +1,7 @@
 package mhj.expmm.common;
 
 import mhj.expmm.client.gui.GuiLoader;
+import mhj.expmm.common.event.EventLoader;
 import mhj.expmm.common.item.ItemLoader;
 import mhj.expmm.common.lib.research.ResearchLoader;
 import mhj.expmm.common.tile.TileEntityLoader;
@@ -21,6 +22,7 @@ public class CommonProxy {
         ItemLoader.init();
         ResearchLoader.init();
         new GuiLoader();
+        new EventLoader();
 
     }
 

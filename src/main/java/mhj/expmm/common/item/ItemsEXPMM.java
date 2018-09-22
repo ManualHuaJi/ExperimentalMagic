@@ -5,5 +5,4 @@ package mhj.expmm.common.item;
  */
 public class ItemsEXPMM {
     public static ItemEXPMM itemReference = new ItemReference();
-    public static ItemEXPMM itemNoteBook = new ItemNoteBook();
 }

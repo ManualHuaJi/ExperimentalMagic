@@ -1,7 +1,7 @@
 package mhj.expmm.common.lib.research;
 
 import mhj.expmm.ExperimentalMagic;
-import mhj.expmm.common.block.ReferenceCabinet;
+import mhj.expmm.common.block.ReferenceBookcase;
 import mhj.expmm.common.lib.research.theorycraft.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
@@ -29,11 +29,11 @@ public class ResearchLoader {
     }
 
     public static Class[] card = {
-            CardGlimpse.class, CardIgnore.class, CardMemoryFlash.class, CardPractice.class, CardRomeRoad.class, CardSnooze.class, CardWhirling.class
+            CardGlimpse.class, CardMemoryFlash.class, CardPractice.class, CardDifferent.class, CardSnooze.class, CardWhirling.class
     };
 
     public static void initCard() {
-        TheorycraftManager.registerAid(new ReferenceCabinet(Material.WOOD));
+        TheorycraftManager.registerAid(new ReferenceBookcase(Material.WOOD));
         for (Class cardclass : card) {
             TheorycraftManager.registerCard(cardclass);
         }

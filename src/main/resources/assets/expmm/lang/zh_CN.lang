@@ -8,33 +8,47 @@ item.reference.alchemy.name=炼金术经典实例解析
 item.reference.artifice.name=炼化学研究合集
 item.reference.infusion.name=奥术注魔的推广应用报告
 item.reference.golemancy.name=论傀儡的意识改良
-item.reference.eldritch.name=埃德里奇的基本法则
+item.reference.eldritch.name=埃德里奇宝典
 item.notebook.name=笔记本
 
 #Block
 tile.mirroraura.name=灵气之镜
-tile.referencecabinet.name=参考资料柜
+tile.referencase.name=参考资料柜
 
 #Research
 ## Theorycarft Card
+###Inspiration
 card.memoryflash.name=在记忆深处寻找新的闪光
 card.memoryflash.text=你重新思考了自己的所有发现，你突然对许久之前的研究有了新的见解。获得任意分支的15点进度，并重获2点灵感和一次额外的抽卡机会
 
 card.glimpse.name=惊鸿一瞥
 card.glimpse.text=正当你因研究毫无头绪而烦躁时，忽然一样东西吸引了你的注意力，也许从这入手也是个不错的选择。获得%1$s点%2$s进度，并重获部分灵感
 
-card.whirling.name=扑朔迷离
-card.whirling.text=在研究邪术学的过程中你忽然发现自己由观测得来的知识并不准确，你不得不花点时间去修正，但结果并不令人满意。失去1份 %1$s 观测来获得25到50点 邪术学 进度并获得5点 %2$s 进度。
-
-card.romeroad.name=条条大路通罗马
-card.romeroad.text=波义耳先生的研究似乎过于强调炼金术的作用，不如换一条思路，虽然可能会浪费点时间。获得%1$s点 炼金术 进度及5点的 %2$s 进度，并消耗额外的墨水与纸
-
-
-card.ignore.name=忽视
-card.ignore.text=罗伊先生在灵气方面的知识真是让我不敢恭维，我暂时还是不要研究神秘学比较好，以免妨碍我其他的研究。你不会在 神秘学 方面取得任何进展，并且不会抽到与之相关的任何选项。当前的 神秘学 研究进度会被舍弃。
-
 card.practice.name=实践
 card.practice.text=你忽然意识到单纯地在研究台前研究并不会有更大的收获，也许还需要把理论与实践相结合。在当前一个随机的分支获得50点进度。
 
 card.snooze.name=小憩
-card.snooze.text=你对沉浸在漫长的研究中感到厌倦，不如先放松一下去寻找新的灵感。总共失去20点进度，并平均分配到每个分支，并重获所有失去的灵感
+card.snooze.text=你对漫长的研究中感到厌倦，不如先放松一下去寻找新的灵感。总共失去20点进度，并平均分配到每个分支，并重获所有失去的灵感
+
+### ALCHEMY
+card.idealexpm.name=理想实验
+card.idealexpm.text=基于对源质的了解，你构造出一个全新的配方，虽然只是构思，但你也得到一些宝贵的见解。获得%1$s点 炼金术 进度
+### INFUSION
+card.interaction.name=相互作用
+card.interaction.text=注魔这种强行将不同性质的源质结合在一起总有危险，越来越多的失败使你不得不思考其中的相互作用，以希望能找到减弱的方法。获得 %1$s点 注魔 进度
+### ARTIFICE
+card.different.name=异曲同工
+card.different.text=有时候换一条思路，也许会得到更大的收获？虽然可能会浪费点时间。获得%1$s点 炼化学 进度及5点的 %2$s 进度，并消耗额外的墨水与纸
+### AUROMANCY
+card.channelvis.name=灵气引导
+card.channelvis.text=你置身于Vis之中，并尝试引导附近所有的Vis，这也使你领悟一些引导Vis的技巧。获得%1$s点 神秘学 进度
+
+card.flux.name=研究咒波
+card.flux.text=灵气中的咒波就像镜片上的裂纹，药膏里的苍蝇，精密仪器中的沙粒，无时无刻都在妨碍你，但也许从中也能得到些许知识，希望这些知识不要沾上咒波。获得25点 神秘学 进度
+### GOLEMANCY
+card.improve.name=效率改良
+card.improve.text=你仔细地调整傀儡的机械部件，使得这些小东西能更高效地运作，同时你也产生了一些新的想法。获得%1$s点 傀儡学进度并获得1点灵感
+### ELDRITCH
+card.whirling.name=扑朔迷离
+card.whirling.text=来自其他分支的研究启发了你在邪术学方面的研究，你想到了些许模糊的碎片，但聊胜于无，获得15到30点 邪术学 进度
+

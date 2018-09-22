@@ -1,7 +1,7 @@
 package mhj.expmm.common.block;
 
 import mhj.expmm.ExperimentalMagic;
-import mhj.expmm.common.tile.TileReferenceCabinet;
+import mhj.expmm.common.tile.TileReferenceBookcase;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -20,15 +20,15 @@ import javax.annotation.Nullable;
 /**
  * @Author: ManualHuaJi
  */
-public class ReferenceCabinet extends BlockEXPMMTile implements ITheorycraftAid, ITileEntityProvider {
-    public ReferenceCabinet(Material material) {
-        super(Material.WOOD,"referencecabinet");
+public class ReferenceBookcase extends BlockEXPMMTile implements ITheorycraftAid, ITileEntityProvider {
+    public ReferenceBookcase(Material material) {
+        super(Material.WOOD, "referencase");
         this.setSoundType(SoundType.WOOD);
     }
 
     @Override
     public Object getAidObject() {
-        return BlocksEXPMM.referenceCabinet;
+        return BlocksEXPMM.referenceBookcase;
 
     }
 
@@ -41,7 +41,7 @@ public class ReferenceCabinet extends BlockEXPMMTile implements ITheorycraftAid,
     @Nullable
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileReferenceCabinet();
+        return new TileReferenceBookcase(meta);
     }
 
     @Override

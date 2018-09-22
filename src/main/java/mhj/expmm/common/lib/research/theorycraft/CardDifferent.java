@@ -9,7 +9,7 @@ import thaumcraft.common.tiles.crafting.TileResearchTable;
 /**
  * @Author: ManualHuaJi
  */
-public class CardRomeRoad extends TheorycraftCard {
+public class CardDifferent extends TheorycraftCard {
     String cat = "ALCHEMY";
     String cat1 = "";
     int amt = 0;
@@ -45,12 +45,12 @@ public class CardRomeRoad extends TheorycraftCard {
 
     @Override
     public String getLocalizedName() {
-        return new TextComponentTranslation("card.romeroad.name", new Object[0]).getUnformattedText();
+        return new TextComponentTranslation("card.different.name", new Object[0]).getUnformattedText();
     }
 
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.romeroad.text", new Object[0]).getUnformattedText();
+        return new TextComponentTranslation("card.different.text", new Object[0]).getUnformattedText();
     }
 
     @Override
