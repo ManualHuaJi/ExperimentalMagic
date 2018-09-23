@@ -1,6 +1,7 @@
 package mhj.expmm.common;
 
 import mhj.expmm.client.gui.GuiLoader;
+import mhj.expmm.common.block.BlockLoader;
 import mhj.expmm.common.event.EventLoader;
 import mhj.expmm.common.item.ItemLoader;
 import mhj.expmm.common.lib.research.ResearchLoader;
@@ -14,7 +15,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
  */
 public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
-        new TileEntityLoader();
+        TileEntityLoader.registerTileEntities();
+        BlockLoader.register();
+        BlockLoader.registerSpecial();
     }
 
 

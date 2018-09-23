@@ -1,14 +1,9 @@
 package mhj.expmm.common.block;
 
-import mhj.expmm.ExperimentalMagic;
-import mhj.expmm.common.tile.TileEntityLoader;
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import thaumcraft.Thaumcraft;
 
 import static mhj.expmm.common.block.BlocksEXPMM.mirrorAura;
 import static mhj.expmm.common.block.BlocksEXPMM.referenceBookcase;
@@ -16,34 +11,46 @@ import static mhj.expmm.common.block.BlocksEXPMM.referenceBookcase;
 /**
  * @Author: ManualHuaJi
  */
-@Mod.EventBusSubscriber(modid = ExperimentalMagic.MODID)
+
 public class BlockLoader {
 
-    public static Block blocks[] = {mirrorAura, referenceBookcase};
+    public static Block blocks[] = {referenceBookcase};
 
-    @SubscribeEvent
-    public static void registerBlcok(RegistryEvent.Register<Block> blockRegister) {
-        IForgeRegistry<Block> br = blockRegister.getRegistry();
-        for (final Block block : blocks) {
-            br.register(block);
+
+    public static void register() {
+        for (Block block : blocks) {
+            registerBlock(block);
         }
-        TileEntityLoader.registerTileEntities();
     }
 
-    @SubscribeEvent
-    public static void registerItemBlocks(RegistryEvent.Register<Item> itemRegister) {
-        final IForgeRegistry<Item> registry = itemRegister.getRegistry();
-
-        for (final Block block1 : blocks) {
-            final ItemBlock[] items = {
-                    new ItemBlock(block1)
-            };
-            for (final ItemBlock item : items) {
-                final Block block = item.getBlock();
-                registry.register(item.setRegistryName(item.getUnlocalizedName()));
-            }
-        }
-
-
+    public static void registerSpecial() {
+        mirrorAura = (BlockEXPMM) registerBlockSpecial(new MirrorAura(), MirrorAuraItem.class);
     }
+
+    private static Block registerBlock(Block block) {
+        return registerBlock(block, new ItemBlock(block));
+    }
+
+    private static Block registerBlock(Block block, ItemBlock itemBlock) {
+        ForgeRegistries.BLOCKS.register(block);
+        itemBlock.setRegistryName(block.getRegistryName());
+        ForgeRegistries.ITEMS.register(itemBlock);
+        Thaumcraft.proxy.registerModel(itemBlock);
+        return block;
+    }
+
+    private static Block registerBlockSpecial(Block block, Class clazz) {
+        ForgeRegistries.BLOCKS.register(block);
+        try {
+            ItemBlock itemBlock = (ItemBlock) clazz.getConstructors()[0].newInstance(new Object[]{block});
+            itemBlock.setRegistryName(block.getRegistryName());
+            ForgeRegistries.ITEMS.register(itemBlock);
+            Thaumcraft.proxy.registerModel(itemBlock);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return block;
+    }
+
 }
+

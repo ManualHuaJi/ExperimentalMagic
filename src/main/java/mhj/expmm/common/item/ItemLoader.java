@@ -1,14 +1,11 @@
 package mhj.expmm.common.item;
 
 import mhj.expmm.ExperimentalMagic;
-import mhj.expmm.common.item.foci.FocusEffectFluxErode;
 import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
-import thaumcraft.api.casters.FocusEngine;
 
 import static mhj.expmm.common.item.ItemsEXPMM.itemReference;
 
@@ -30,7 +27,6 @@ public class ItemLoader {
     }
 
     public static void init() {
-        FocusEngine.registerElement(FocusEffectFluxErode.class, new ResourceLocation(ExperimentalMagic.MODID, "textures/foci/fluxreode.png"), 511256);
     }
 
 }

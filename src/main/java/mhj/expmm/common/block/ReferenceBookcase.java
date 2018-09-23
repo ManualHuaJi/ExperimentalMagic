@@ -21,8 +21,8 @@ import javax.annotation.Nullable;
  * @Author: ManualHuaJi
  */
 public class ReferenceBookcase extends BlockEXPMMTile implements ITheorycraftAid, ITileEntityProvider {
-    public ReferenceBookcase(Material material) {
-        super(Material.WOOD, "referencase");
+    public ReferenceBookcase() {
+        super(Material.WOOD, TileReferenceBookcase.class, "referencase");
         this.setSoundType(SoundType.WOOD);
     }
 

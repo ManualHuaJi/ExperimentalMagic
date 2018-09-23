@@ -3,7 +3,6 @@ package mhj.expmm.common.lib.research;
 import mhj.expmm.ExperimentalMagic;
 import mhj.expmm.common.block.ReferenceBookcase;
 import mhj.expmm.common.lib.research.theorycraft.*;
-import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.CommandEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -33,7 +32,7 @@ public class ResearchLoader {
     };
 
     public static void initCard() {
-        TheorycraftManager.registerAid(new ReferenceBookcase(Material.WOOD));
+        TheorycraftManager.registerAid(new ReferenceBookcase());
         for (Class cardclass : card) {
             TheorycraftManager.registerCard(cardclass);
         }
