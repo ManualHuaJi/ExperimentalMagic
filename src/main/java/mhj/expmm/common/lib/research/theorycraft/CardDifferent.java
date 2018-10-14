@@ -10,7 +10,6 @@ import thaumcraft.common.tiles.crafting.TileResearchTable;
  * @Author: ManualHuaJi
  */
 public class CardDifferent extends TheorycraftCard {
-    String cat = "ALCHEMY";
     String cat1 = "";
     int amt = 0;
 
@@ -60,7 +59,7 @@ public class CardDifferent extends TheorycraftCard {
                 (((TileResearchTable) data.table).getStackInSlot(1) != null)) {
             ((TileResearchTable) data.table).consumeInkFromTable();
             ((TileResearchTable) data.table).consumepaperFromTable();
-            data.addTotal(this.cat, this.amt);
+            data.addTotal("ALCHEMY", this.amt);
             data.addTotal(this.cat1, 5);
 
         }

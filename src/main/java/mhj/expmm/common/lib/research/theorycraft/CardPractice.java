@@ -16,6 +16,11 @@ public class CardPractice extends TheorycraftCard {
     }
 
     @Override
+    public boolean initialize(EntityPlayer player, ResearchTableData data) {
+        return super.initialize(player, data);
+    }
+
+    @Override
     public String getLocalizedName() {
         return new TextComponentTranslation("card.practice.name", new Object[0]).getUnformattedText();
     }

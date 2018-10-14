@@ -1,38 +1,42 @@
 package mhj.expmm.common.lib.research.theorycraft;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
+import thaumcraft.api.items.ItemsTC;
 import thaumcraft.api.research.theorycraft.ResearchTableData;
 import thaumcraft.api.research.theorycraft.TheorycraftCard;
+
+import java.util.Random;
 
 /**
  * @Author: ManualHuaJi
  */
 public class CardGlimpse extends TheorycraftCard {
+    ItemStack stack = ItemStack.EMPTY;
     String cat = "";
     int amt;
+    ItemStack options[] = {new ItemStack(ItemsTC.visResonator), new ItemStack(ItemsTC.thaumometer), new ItemStack(Blocks.ANVIL), new ItemStack(Blocks.ACTIVATOR_RAIL), new ItemStack(Blocks.DISPENSER), new ItemStack(Blocks.DROPPER), new ItemStack(Blocks.ENCHANTING_TABLE), new ItemStack(Blocks.ENDER_CHEST), new ItemStack(Blocks.JUKEBOX), new ItemStack(Blocks.DAYLIGHT_DETECTOR), new ItemStack(Blocks.PISTON), new ItemStack(Blocks.HOPPER), new ItemStack(Blocks.STICKY_PISTON), new ItemStack(Items.MAP), new ItemStack(Items.COMPASS), new ItemStack(Items.TNT_MINECART), new ItemStack(Items.COMPARATOR), new ItemStack(Items.CLOCK), new ItemStack(ItemsTC.quicksilver), new ItemStack(ItemsTC.amber)};
 
     @Override
     public NBTTagCompound serialize() {
         NBTTagCompound nbt = super.serialize();
         nbt.setString("cat", this.cat);
         nbt.setInteger("amt", this.amt);
+        nbt.setTag("stack", this.stack.serializeNBT());
         return nbt;
     }
 
     @Override
-    public boolean isAidOnly() {
-        return false;
-    }
-
-    @Override
     public void deserialize(NBTTagCompound nbt) {
+        super.deserialize(nbt);
         this.cat = nbt.getString("cat");
         this.amt = nbt.getInteger("amt");
-        super.deserialize(nbt);
+        this.stack = new ItemStack(nbt.getCompoundTag("stack"));
     }
 
     @Override
@@ -62,7 +66,9 @@ public class CardGlimpse extends TheorycraftCard {
         }
         this.cat = hKey;
         this.amt = (10 + hVal / 2);
-        return data.inspiration < 3;
+        Random r = new Random(getSeed());
+        this.stack = options[r.nextInt(options.length)].copy();
+        return data.inspiration < 3 && this.stack != null;
     }
 
     @Override
@@ -71,17 +77,16 @@ public class CardGlimpse extends TheorycraftCard {
         return 0;
     }
 
+    @Override
+    public ItemStack[] getRequiredItems() {
+        return new ItemStack[]{this.stack};
+    }
+
 
     @Override
     public boolean activate(EntityPlayer player, ResearchTableData data) {
-        int ins = MathHelper.floor(1 + Math.random() * 5);
+        data.addInspiration(4);
         data.addTotal(this.cat, this.amt);
-        if (ins < data.inspiration - 2) {
-            data.addInspiration(ins);
-        } else {
-            data.addInspiration(2);
-        }
-
         return true;
     }
 

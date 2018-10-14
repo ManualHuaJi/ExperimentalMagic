@@ -199,12 +199,13 @@ public class TileMirrorAura extends TileEntityEXPMM implements ITickable {
             checkInstability();
             AuraSource = AuraHelper.getVis(this.world, pos);
             AuraTo = AuraHelper.getVis(this.world, new BlockPos(this.linkX, this.linkY, this.linkZ));
-            float AuraVaule = (AuraSource + AuraTo) / 2;
-            if (AuraSource != AuraTo) {
-                AuraHelper.addVis(this.world, new BlockPos(this.linkX, this.linkY, this.linkZ), -AuraTo);
-                AuraHelper.addVis(this.world, this.pos, -AuraTo);
+            float AuraVaule = Math.abs(AuraSource - AuraTo) / 2;
+            if (AuraSource > AuraTo) {
+                AuraHelper.drainVis(this.world, this.pos, AuraVaule, false);
                 AuraHelper.addVis(this.world, new BlockPos(this.linkX, this.linkY, this.linkZ), AuraVaule);
+            } else {
                 AuraHelper.addVis(this.world, this.pos, AuraVaule);
+                AuraHelper.drainVis(this.world, new BlockPos(this.linkX, this.linkY, this.linkZ), AuraVaule, false);
             }
             if (this.count++ % this.inc == 0) {
                 if (!isLinkValidSimple()) {

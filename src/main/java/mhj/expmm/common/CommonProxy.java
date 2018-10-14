@@ -16,8 +16,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         TileEntityLoader.registerTileEntities();
-        BlockLoader.register();
-        BlockLoader.registerSpecial();
+      BlockLoader.regitser();
     }
 
 

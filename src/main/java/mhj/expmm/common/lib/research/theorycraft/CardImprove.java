@@ -1,6 +1,7 @@
 package mhj.expmm.common.lib.research.theorycraft;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
 import thaumcraft.api.research.theorycraft.ResearchTableData;
 import thaumcraft.api.research.theorycraft.TheorycraftCard;
@@ -11,7 +12,12 @@ import thaumcraft.api.research.theorycraft.TheorycraftCard;
 public class CardImprove extends TheorycraftCard {
     @Override
     public int getInspirationCost() {
-        return 0;
+        return 1;
+    }
+
+    @Override
+    public boolean initialize(EntityPlayer player, ResearchTableData data) {
+        return true;
     }
 
     @Override
@@ -23,8 +29,12 @@ public class CardImprove extends TheorycraftCard {
     public String getLocalizedText() {
         return new TextComponentTranslation("card.improve.text", new Object[0]).getUnformattedText();
     }
+
     @Override
     public boolean activate(EntityPlayer player, ResearchTableData data) {
-        return false;
+
+        data.addTotal("GOLEMANCY", MathHelper.getInt(player.getRNG(), 10, 15));
+        data.addInspiration(2);
+        return true;
     }
 }

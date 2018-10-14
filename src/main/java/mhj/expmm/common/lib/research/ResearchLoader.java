@@ -28,7 +28,7 @@ public class ResearchLoader {
     }
 
     public static Class[] card = {
-            CardGlimpse.class, CardMemoryFlash.class, CardPractice.class, CardDifferent.class, CardSnooze.class, CardWhirling.class
+            CardChannelVis.class, CardDifferent.class, CardFlux.class, CardGlimpse.class, CardIdealExpm.class, CardImprove.class, CardInteraction.class, CardMemoryFlash.class, CardWhirling.class,CardRecollect.class
     };
 
     public static void initCard() {

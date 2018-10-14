@@ -16,7 +16,7 @@ import thaumcraft.api.research.theorycraft.TheorycraftCard;
 public class CardMemoryFlash extends TheorycraftCard {
     @Override
     public boolean initialize(EntityPlayer player, ResearchTableData data) {
-        return data.inspiration < 2;
+        return data.inspiration < ResearchTableData.getAvailableInspiration(player) / 2;
     }
 
     @Override
@@ -53,11 +53,11 @@ public class CardMemoryFlash extends TheorycraftCard {
                 }
             }
         }
-        int ins = (MathHelper.floor(Math.pow(tot, 10 / 3)));
-        if (data.inspiration < 3) {
+        int ins = (MathHelper.floor(Math.pow(tot, 10/3)));
+        if (data.inspiration < 5) {
             data.addInspiration(ins);
         } else {
-            data.addInspiration(1);
+            data.addInspiration(3);
         }
         return true;
     }

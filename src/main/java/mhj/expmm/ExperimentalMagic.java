@@ -20,7 +20,7 @@ import static mhj.expmm.ExperimentalMagic.*;
 /**
  * @Author: ManualHuaJi
  */
-@Mod(modid = MODID, name = NAME, version = VERSION, dependencies = "required-after:thaumcraft@[6.1.BETA23,);", acceptedMinecraftVersions = "1.12.2")
+@Mod(modid = MODID, name = NAME, version = VERSION, dependencies = "required-after:thaumcraft@[6.1.BETA20,);", acceptedMinecraftVersions = "1.12.2")
 public class ExperimentalMagic {
     @SidedProxy(clientSide = "mhj.expmm.client.ClientProxy", serverSide = "mhj.expmm.common.CommonProxy")
     public static CommonProxy proxy;
@@ -39,7 +39,7 @@ public class ExperimentalMagic {
 
     @Mod.EventHandler
     public void Init(FMLInitializationEvent event) {
-        EXPMM = ResearchCategories.registerCategory("EXPMM", (String) null, (AspectList) null, new ResourceLocation("expmm", "texture/misc/cat.png"), new ResourceLocation("thaumcraft", "textures/gui/gui_research_back_1.jpg"), null);
+     EXPMM = ResearchCategories.registerCategory("EXPMM", (String) null, (AspectList) null, new ResourceLocation("expmm", "texture/misc/cat.png"), new ResourceLocation("thaumcraft", "textures/gui/gui_research_back_1.jpg"), null);
         ResearchLoader.$init();
         proxy.Init(event);
     }
