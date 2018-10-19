@@ -34,6 +34,7 @@ public class GuiReferenceBookShelf extends GuiContainer {
         this.mc.getTextureManager().bindTexture(texture1);
         int offsetX = (this.width - this.xSize) / 2, offsetY = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(offsetX, offsetY, 0, 0, this.xSize, this.ySize);
+
     }
 
     @Override

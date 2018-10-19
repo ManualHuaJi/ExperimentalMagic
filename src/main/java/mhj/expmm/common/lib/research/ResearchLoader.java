@@ -3,11 +3,9 @@ package mhj.expmm.common.lib.research;
 import mhj.expmm.ExperimentalMagic;
 import mhj.expmm.common.block.ReferenceBookcase;
 import mhj.expmm.common.lib.research.theorycraft.*;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.CommandEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thaumcraft.api.capabilities.IPlayerKnowledge;
-import thaumcraft.api.items.ItemsTC;
 import thaumcraft.api.research.ResearchEntry;
 import thaumcraft.api.research.ResearchStage;
 import thaumcraft.api.research.theorycraft.TheorycraftManager;
@@ -28,7 +26,7 @@ public class ResearchLoader {
     }
 
     public static Class[] card = {
-            CardChannelVis.class, CardDifferent.class, CardFlux.class, CardGlimpse.class, CardIdealExpm.class, CardImprove.class, CardInteraction.class, CardMemoryFlash.class, CardWhirling.class,CardRecollect.class
+            CardChannelVis.class, CardDifferent.class, CardFlux.class, CardGlimpse.class, CardIdealExpm.class, CardImprove.class, CardInteraction.class, CardMemoryFlash.class, CardWhirling.class, CardRecollect.class
     };
 
     public static void initCard() {
@@ -42,23 +40,28 @@ public class ResearchLoader {
         new RI().setBaseInfo("EXPMMFIRST", "expmmfisrt", 0, 0)
                 .setSpiky()
                 .setRound()
-                .setIcons("thaumcraft:textures/research/cat_auromancy.png")
+                .setIcons("exomm:texture/misc/cat.png")
                 .setParents("FIRSTSTEPS")
                 .setStages(new RP()
                         .setText("research.EXPMMFIRST.stage.1")
                         .registerResearchPages()).registerResearchItem();
-        new RI().setBaseInfo("FLUXERODE", "fluxerode", 0, 5)
+        new RI().setBaseInfo("FOCUSREDEYE", "focusredeye", 0, 5)
                 .setIcons("thaumcraft:textures/research/cat_auromancy.png")
-                .setParents("FOCUSFLUX", "EXPMMFIRST")
+                .setParents("BASEAUROMANCY", "EXPMMFIRST")
                 .setReverse()
                 .setStages(new RP()
-                        .setText("research.FOCUSFLUXERODE.pages.1")
+                        .setText("research.FOCUSREDEYE.pages.1")
                         .setKnow(new ResearchStage.Knowledge(IPlayerKnowledge.EnumKnowledgeType.THEORY, getResearchCategory("AUROMANCY"), 2))
-                        .setWarp(2)
-                        .setRequiredItems(new ItemStack[]{new ItemStack(ItemsTC.bottleTaint)})
                         .registerResearchPages())
                 .registerResearchItem();
-
+        new RI().setBaseInfo("FOCUSGOLDENEYE", "FOCUSGOLDENEYE", 2, 6)
+                .setIcons("expmm:textures/item/foci/goldeneye.png")
+                .setParents("FOCUSREDEYE")
+                .setReverse()
+                .setStages(new RP()
+                        .setText("research.FOCUSGOLDENEYE.pages.1")
+                        .setKnow(new ResearchStage.Knowledge(IPlayerKnowledge.EnumKnowledgeType.THEORY, getResearchCategory("AUROMANCY"), 2))
+                        .registerResearchPages()).registerResearchItem();
     }
 
     private static class RA extends ResearchAddenda {

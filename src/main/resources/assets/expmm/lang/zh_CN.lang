@@ -11,12 +11,56 @@ item.reference.golemancy.name=论傀儡的意识改良
 item.reference.eldritch.name=埃德里奇宝典
 item.notebook.name=笔记本
 
+
+##Focus
+###Focus Effect
+thaumcraft.REDEYE.name=红眼
+thaumcraft.REDEYE.text=当生命降低到一定程度后有几率触发一刀斩
+thaumcraft.TELEPORTATION.name=传送
+thaumcraft.TELEPORTATION.text=使你能传送到30格以内的任意地方
+###Effect Embellishment
+EF.goldeneye.name=金眼
+EF.goldeneye.text=减少触发几率，但杀死生物获得更多掉落物
+EF.fog.name=雾霭
+EF.fog.text=传送后获得移速及跳跃加成
+EF.remnantimage.name=残像
+EF.remnantimage.text=只能传送到固定地点
+EF.script.name=剧本
+EF.script.text=对不可触发红眼效果的目标造成额外伤害
+EF.rustymemory.name=锈色回忆
+EF.rustymemory.text=自身受到伤害越多，攻击伤害越高
+EF.mindeyes.name=心眼
+EF.mindeyes.text=显示可触发红眼的目标，即使隐于障碍之后
+EF.star.name=群星
+EF.star.text=以星光获得效果加成
+EF.moon.name=明月
+EF.moon.text=以月光获得效果加成
+EF.sun.name=日耀
+EF.sun.text=以日光获得效果加成
 #Block
 tile.mirroraura.name=灵气之镜
 tile.referencase.name=参考资料柜
 
 #Research
-## Theorycarft Card
+##Research
+research.FOCUSEFFECTREDEYE.tile=核心效果：红眼
+expmm.research.FOCUSREDEYE.text=薔薇の紳士
+research.FOCUSEFFECTREDEYE.stage.1=
+research.EFGOLDENEYE.tile=效果修饰：金眼
+research.EFGOLDENEYE.stage.1=
+research.EFMINDNEYE.tile=效果修饰：心眼
+research.EFMINDNEYE.stage.1=
+research.EFFOG.tile=效果修饰：雾都夜行
+research.EFFOG.stage.1=
+research.EFRUSTYMEMORY.tile=效果修饰：锈色回忆
+research.EFRUSTYMEMORY.stage.1=
+research.EFSCRIPT.tile=效果修饰：剧本
+research.EFSCRIPT.stage.1=
+research.EFCELESTIAL.tile=效果修饰：天象
+research.EFCELESTIAL.stage.1=
+research.EFAFTERIMAGE.tile=效果修饰：残像
+research.EFAFTERIMAGE.stage.1=
+## Theorycarft Cards
 
 ###General
 card.recollect.name=重拾 %1$s 发现
@@ -61,4 +105,3 @@ card.improve.text=你仔细地调整傀儡的机械部件，使得这些小东�
 ### Eldritch
 card.whirling.name=扑朔迷离
 card.whirling.text=来自其他分支的研究启发了你在邪术学方面的研究，你想到了些许模糊的碎片，但聊胜于无，获得 15 到 30 点 邪术学 进度
-

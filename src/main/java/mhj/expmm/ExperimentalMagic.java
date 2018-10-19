@@ -2,6 +2,7 @@ package mhj.expmm;
 
 import mhj.expmm.common.CommonProxy;
 import mhj.expmm.common.command.CommandEXPMM;
+import mhj.expmm.common.event.EventLoader;
 import mhj.expmm.common.lib.research.ResearchLoader;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -39,7 +40,8 @@ public class ExperimentalMagic {
 
     @Mod.EventHandler
     public void Init(FMLInitializationEvent event) {
-     EXPMM = ResearchCategories.registerCategory("EXPMM", (String) null, (AspectList) null, new ResourceLocation("expmm", "texture/misc/cat.png"), new ResourceLocation("thaumcraft", "textures/gui/gui_research_back_1.jpg"), null);
+        new EventLoader();
+        EXPMM = ResearchCategories.registerCategory("EXPMM", (String) null, (AspectList) null, new ResourceLocation("expmm", "texture/misc/cat.png"), new ResourceLocation("thaumcraft", "textures/gui/gui_research_back_1.jpg"), null);
         ResearchLoader.$init();
         proxy.Init(event);
     }
@@ -49,9 +51,9 @@ public class ExperimentalMagic {
         proxy.postInit(event);
         ResearchLoader.init.call();
     }
+
     @Mod.EventHandler
-    public void severStarting(FMLServerStartingEvent event)
-    {
+    public void severStarting(FMLServerStartingEvent event) {
         event.registerServerCommand(new CommandEXPMM());
     }
 }
