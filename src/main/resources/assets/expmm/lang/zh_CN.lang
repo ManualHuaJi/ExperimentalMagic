@@ -43,23 +43,24 @@ tile.referencase.name=参考资料柜
 
 #Research
 ##Research
+research.EXPMMFIRST.tile=
 research.FOCUSEFFECTREDEYE.tile=核心效果：红眼
 expmm.research.FOCUSREDEYE.text=薔薇の紳士
 research.FOCUSEFFECTREDEYE.stage.1=
-research.EFGOLDENEYE.tile=效果修饰：金眼
-research.EFGOLDENEYE.stage.1=
-research.EFMINDNEYE.tile=效果修饰：心眼
-research.EFMINDNEYE.stage.1=
-research.EFFOG.tile=效果修饰：雾都夜行
-research.EFFOG.stage.1=
-research.EFRUSTYMEMORY.tile=效果修饰：锈色回忆
-research.EFRUSTYMEMORY.stage.1=
-research.EFSCRIPT.tile=效果修饰：剧本
-research.EFSCRIPT.stage.1=
-research.EFCELESTIAL.tile=效果修饰：天象
-research.EFCELESTIAL.stage.1=
-research.EFAFTERIMAGE.tile=效果修饰：残像
-research.EFAFTERIMAGE.stage.1=
+research.EEGOLDENEYE.tile=效果修饰：金眼
+research.EEGOLDENEYE.stage.1=
+research.EEMINDNEYE.tile=效果修饰：心眼
+research.EEMINDNEYE.stage.1=
+research.EEFOG.tile=效果修饰：雾都夜行
+research.EEFOG.stage.1=
+research.EERUSTYMEMORY.tile=效果修饰：锈色回忆
+research.EERUSTYMEMORY.stage.1=
+research.EESCRIPT.tile=效果修饰：剧本
+research.EESCRIPT.stage.1=
+research.EECELESTIAL.tile=效果修饰：天象
+research.EECELESTIAL.stage.1=
+research.EEAFTERIMAGE.tile=效果修饰：残像
+research.EEAFTERIMAGE.stage.1=
 ## Theorycarft Cards
 
 ###General

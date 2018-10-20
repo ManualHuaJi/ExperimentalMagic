@@ -2,6 +2,7 @@ package mhj.expmm.client.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -17,13 +18,13 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.Pair;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
-import thaumcraft.api.capabilities.IPlayerKnowledge;
 import thaumcraft.api.capabilities.IPlayerKnowledge.EnumResearchFlag;
 import thaumcraft.api.capabilities.ThaumcraftCapabilities;
 import thaumcraft.api.casters.FocusEngine;
@@ -38,7 +39,6 @@ import thaumcraft.api.research.ResearchEntry;
 import thaumcraft.api.research.ResearchEntry.EnumResearchMeta;
 import thaumcraft.api.research.ResearchStage;
 import thaumcraft.client.gui.GuiFocalManipulator;
-import thaumcraft.client.gui.GuiResearchBrowser;
 import thaumcraft.client.gui.GuiResearchPage;
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.common.config.ConfigResearch;
@@ -50,19 +50,30 @@ import thaumcraft.common.lib.research.ResearchManager;
 import thaumcraft.common.lib.utils.InventoryUtils;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.*;
 
 /**
- * @Author: ManualHuaJi
+ * Original version {@link thaumcraft.client.gui.GuiResearchBrowser}
  */
+@SuppressWarnings("all")
 @SideOnly(Side.CLIENT)
-public class GuiResearchBrowserR extends GuiResearchBrowser {
+public class GuiResearchBrowserR extends GuiScreen {
     private static int guiBoundsLeft;
     private static int guiBoundsTop;
     private static int guiBoundsRight;
     private static int guiBoundsBottom;
+    protected int mouseX = 0;
+    protected int mouseY = 0;
+    protected float screenZoom = 1.0F;
+    protected double curMouseX;
+    protected double curMouseY;
+    protected double guiMapX;
+    protected double guiMapY;
+    protected double tempMapX;
+    protected double tempMapY;
     private int isMouseButtonDown = 0;
+    public static double lastX = -9999.0D;
+    public static double lastY = -9999.0D;
     GuiResearchBrowserR instance = null;
     private int screenX;
     private int screenY;
@@ -81,6 +92,7 @@ public class GuiResearchBrowserR extends GuiResearchBrowser {
     private ArrayList<String> categoriesOther = new ArrayList();
     static int catScrollPos = 0;
     static int catScrollMax = 0;
+    public int addonShift = 0;
     private ArrayList<String> invisible = new ArrayList();
     ArrayList<Pair<String, GuiResearchBrowserR.SearchResult>> searchResults = new ArrayList();
     ResourceLocation tx1 = new ResourceLocation("thaumcraft", "textures/gui/gui_research_browser.png");
@@ -101,14 +113,14 @@ public class GuiResearchBrowserR extends GuiResearchBrowser {
 
     @Override
     public void initGui() {
-        super.updateResearch();
+        this.updateResearch();
     }
 
-    @Override
     public void updateResearch() {
         if (this.mc == null) {
             this.mc = Minecraft.getMinecraft();
         }
+
         this.buttonList.clear();
         this.buttonList.add(new GuiResearchBrowserR.GuiSearchButton(2, 1, this.height - 17, 16, 16, I18n.translateToLocalFormatted("tc.search", new Object[0])));
         Keyboard.enableRepeatEvents(true);
@@ -205,7 +217,7 @@ public class GuiResearchBrowserR extends GuiResearchBrowser {
 
                     while (var8.hasNext()) {
                         Object res = var8.next();
-                        if (!((ResearchEntry) res).hasMeta(ResearchEntry.EnumResearchMeta.AUTOUNLOCK)) {
+                        if (!((ResearchEntry) res).hasMeta(EnumResearchMeta.AUTOUNLOCK)) {
                             ++rt;
                             if (ThaumcraftCapabilities.knowsResearch(this.player, new String[]{((ResearchEntry) res).getKey()})) {
                                 ++rco;
@@ -242,9 +254,9 @@ public class GuiResearchBrowserR extends GuiResearchBrowser {
     private boolean isVisible(ResearchEntry res) {
         if (ThaumcraftCapabilities.knowsResearch(this.player, new String[]{res.getKey()})) {
             return true;
-        } else if (this.invisible.contains(res.getKey()) || res.hasMeta(ResearchEntry.EnumResearchMeta.HIDDEN) && !this.canUnlockResearch(res)) {
+        } else if (this.invisible.contains(res.getKey()) || res.hasMeta(EnumResearchMeta.HIDDEN) && !this.canUnlockResearch(res)) {
             return false;
-        } else if (res.getParents() == null && res.hasMeta(ResearchEntry.EnumResearchMeta.HIDDEN)) {
+        } else if (res.getParents() == null && res.hasMeta(EnumResearchMeta.HIDDEN)) {
             return false;
         } else {
             if (res.getParents() != null) {
@@ -269,6 +281,39 @@ public class GuiResearchBrowserR extends GuiResearchBrowser {
         return ResearchManager.doesPlayerHaveRequisites(this.player, res.getKey());
     }
 
+    @Override
+    public void onGuiClosed() {
+        lastX = this.guiMapX;
+        lastY = this.guiMapY;
+        Keyboard.enableRepeatEvents(false);
+        super.onGuiClosed();
+    }
+
+    @Override
+    public void setWorldAndResolution(Minecraft mc, int width, int height) {
+        super.setWorldAndResolution(mc, width, height);
+        this.updateResearch();
+        if (lastX == -9999.0D || this.guiMapX > (double) guiBoundsRight || this.guiMapX < (double) guiBoundsLeft) {
+            this.guiMapX = this.tempMapX = (double) ((guiBoundsLeft + guiBoundsRight) / 2);
+        }
+
+        if (lastY == -9999.0D || this.guiMapY > (double) guiBoundsBottom || this.guiMapY < (double) guiBoundsTop) {
+            this.guiMapY = this.tempMapY = (double) ((guiBoundsBottom + guiBoundsTop) / 2);
+        }
+
+    }
+
+    @Override
+    protected void keyTyped(char par1, int par2) throws IOException {
+        if (searching && this.searchField.textboxKeyTyped(par1, par2)) {
+            this.updateSearch();
+        } else if (par2 == this.mc.gameSettings.keyBindInventory.getKeyCode()) {
+            this.mc.displayGuiScreen((GuiScreen) null);
+            this.mc.setIngameFocus();
+        }
+
+        super.keyTyped(par1, par2);
+    }
 
     private void updateSearch() {
         this.searchResults.clear();
@@ -479,10 +524,10 @@ public class GuiResearchBrowserR extends GuiResearchBrowser {
 
     @Override
     public void updateScreen() {
-        this.curMouseX =super.guiMapX;
-        this.curMouseY = super.guiMapY;
-        double var1 = super.tempMapX - super.guiMapX;
-        double var3 = super.tempMapY - super.guiMapY;
+        this.curMouseX = this.guiMapX;
+        this.curMouseY = this.guiMapY;
+        double var1 = this.tempMapX - this.guiMapX;
+        double var3 = this.tempMapY - this.guiMapY;
         if (var1 * var1 + var3 * var3 < 4.0D) {
             this.guiMapX += var1;
             this.guiMapY += var3;
@@ -504,7 +549,6 @@ public class GuiResearchBrowserR extends GuiResearchBrowser {
         GlStateManager.enableColorMaterial();
     }
 
-    @Override
     protected void genResearchBackgroundZoomable(int mx, int my, float par3, int locX, int locY) {
         GL11.glPushMatrix();
         GlStateManager.enableBlend();
@@ -618,16 +662,16 @@ public class GuiResearchBrowserR extends GuiResearchBrowser {
                     GL11.glEnable(2884);
                     GL11.glEnable(3042);
                     GL11.glBlendFunc(770, 771);
-                    if (iconResearch.hasMeta(ResearchEntry.EnumResearchMeta.ROUND)) {
+                    if (iconResearch.hasMeta(EnumResearchMeta.ROUND)) {
                         this.drawTexturedModalRect(iconX - 8, iconY - 8, 144, 48 + (iconResearch.hasMeta(EnumResearchMeta.HIDDEN) ? 32 : 0), 32, 32);
                     } else {
                         ix = 80;
                         iy = 48;
-                        if (iconResearch.hasMeta(ResearchEntry.EnumResearchMeta.HIDDEN)) {
+                        if (iconResearch.hasMeta(EnumResearchMeta.HIDDEN)) {
                             iy += 32;
                         }
 
-                        if (iconResearch.hasMeta(ResearchEntry.EnumResearchMeta.HEX)) {
+                        if (iconResearch.hasMeta(EnumResearchMeta.HEX)) {
                             ix += 32;
                         }
 
@@ -645,7 +689,7 @@ public class GuiResearchBrowserR extends GuiResearchBrowser {
                         bw = true;
                     }
 
-                    if (ThaumcraftCapabilities.getKnowledge(this.player).hasResearchFlag(iconResearch.getKey(), IPlayerKnowledge.EnumResearchFlag.RESEARCH)) {
+                    if (ThaumcraftCapabilities.getKnowledge(this.player).hasResearchFlag(iconResearch.getKey(), EnumResearchFlag.RESEARCH)) {
                         GL11.glPushMatrix();
                         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                         GL11.glTranslatef((float) (iconX - 9), (float) (iconY - 9), 0.0F);
@@ -654,7 +698,7 @@ public class GuiResearchBrowserR extends GuiResearchBrowser {
                         GL11.glPopMatrix();
                     }
 
-                    if (ThaumcraftCapabilities.getKnowledge(this.player).hasResearchFlag(iconResearch.getKey(), IPlayerKnowledge.EnumResearchFlag.PAGE)) {
+                    if (ThaumcraftCapabilities.getKnowledge(this.player).hasResearchFlag(iconResearch.getKey(), EnumResearchFlag.PAGE)) {
                         GL11.glPushMatrix();
                         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                         GL11.glTranslatef((float) (iconX - 9), (float) (iconY + 9), 0.0F);
@@ -734,6 +778,10 @@ public class GuiResearchBrowserR extends GuiResearchBrowser {
 
     }
 
+    /**
+     * Original version {@link thaumcraft.client.gui.GuiResearchBrowser}
+     *
+     */
     private void genResearchBackgroundFixedPost(int mx, int my, float par3, int locX, int locY) {
         this.mc.renderEngine.bindTexture(this.tx1);
         GL11.glEnable(3042);
@@ -887,7 +935,11 @@ public class GuiResearchBrowserR extends GuiResearchBrowser {
             }
         }
 
-        super.mouseClicked(mx, my, par3);
+        try {
+            super.mouseClicked(mx, my, par3);
+        } catch (IOException var8) {
+            ;
+        }
 
     }
 
@@ -935,7 +987,134 @@ public class GuiResearchBrowserR extends GuiResearchBrowser {
         return false;
     }
 
-    @Override
+    private void drawLine(int x, int y, int x2, int y2, float r, float g, float b, int locX, int locY, float zMod, boolean arrow, boolean flipped) {
+        float zt = this.zLevel;
+        this.zLevel += zMod;
+        boolean bigCorner = false;
+        int xd;
+        int yd;
+        int xm;
+        int ym;
+        int xx;
+        int yy;
+        if (flipped) {
+            xd = Math.abs(x2 - x);
+            yd = Math.abs(y2 - y);
+            xm = xd == 0 ? 0 : (x2 - x > 0 ? -1 : 1);
+            ym = yd == 0 ? 0 : (y2 - y > 0 ? -1 : 1);
+            if (xd > 1 && yd > 1) {
+                bigCorner = true;
+            }
+
+            xx = x2 * 24 - 4 - locX + this.startX;
+            yy = y2 * 24 - 4 - locY + this.startY;
+        } else {
+            xd = Math.abs(x - x2);
+            yd = Math.abs(y - y2);
+            xm = xd == 0 ? 0 : (x - x2 > 0 ? -1 : 1);
+            ym = yd == 0 ? 0 : (y - y2 > 0 ? -1 : 1);
+            if (xd > 1 && yd > 1) {
+                bigCorner = true;
+            }
+
+            xx = x * 24 - 4 - locX + this.startX;
+            yy = y * 24 - 4 - locY + this.startY;
+        }
+
+        GL11.glPushMatrix();
+        GL11.glAlphaFunc(516, 0.003921569F);
+        GL11.glEnable(3042);
+        GL11.glBlendFunc(770, 771);
+        GL11.glColor4f(r, g, b, 1.0F);
+        int v;
+        int h;
+        if (arrow) {
+            if (flipped) {
+                v = x * 24 - 8 - locX + this.startX;
+                h = y * 24 - 8 - locY + this.startY;
+                if (xm < 0) {
+                    this.drawTexturedModalRect(v, h, 160, 112, 32, 32);
+                } else if (xm > 0) {
+                    this.drawTexturedModalRect(v, h, 128, 112, 32, 32);
+                } else if (ym > 0) {
+                    this.drawTexturedModalRect(v, h, 64, 112, 32, 32);
+                } else if (ym < 0) {
+                    this.drawTexturedModalRect(v, h, 96, 112, 32, 32);
+                }
+            } else if (ym < 0) {
+                this.drawTexturedModalRect(xx - 4, yy - 4, 64, 112, 32, 32);
+            } else if (ym > 0) {
+                this.drawTexturedModalRect(xx - 4, yy - 4, 96, 112, 32, 32);
+            } else if (xm > 0) {
+                this.drawTexturedModalRect(xx - 4, yy - 4, 160, 112, 32, 32);
+            } else if (xm < 0) {
+                this.drawTexturedModalRect(xx - 4, yy - 4, 128, 112, 32, 32);
+            }
+        }
+
+        v = 1;
+
+        byte h1;
+        for (h1 = 0; v < yd - (bigCorner ? 1 : 0); ++v) {
+            this.drawTexturedModalRect(xx + xm * 24 * h1, yy + ym * 24 * v, 0, 228, 24, 24);
+        }
+
+        if (bigCorner) {
+            if (xm < 0 && ym > 0) {
+                this.drawTexturedModalRect(xx + xm * 24 * h1 - 24, yy + ym * 24 * v, 0, 180, 48, 48);
+            }
+
+            if (xm > 0 && ym > 0) {
+                this.drawTexturedModalRect(xx + xm * 24 * h1, yy + ym * 24 * v, 48, 180, 48, 48);
+            }
+
+            if (xm < 0 && ym < 0) {
+                this.drawTexturedModalRect(xx + xm * 24 * h1 - 24, yy + ym * 24 * v - 24, 96, 180, 48, 48);
+            }
+
+            if (xm > 0 && ym < 0) {
+                this.drawTexturedModalRect(xx + xm * 24 * h1, yy + ym * 24 * v - 24, 144, 180, 48, 48);
+            }
+        } else {
+            if (xm < 0 && ym > 0) {
+                this.drawTexturedModalRect(xx + xm * 24 * h1, yy + ym * 24 * v, 48, 228, 24, 24);
+            }
+
+            if (xm > 0 && ym > 0) {
+                this.drawTexturedModalRect(xx + xm * 24 * h1, yy + ym * 24 * v, 72, 228, 24, 24);
+            }
+
+            if (xm < 0 && ym < 0) {
+                this.drawTexturedModalRect(xx + xm * 24 * h1, yy + ym * 24 * v, 96, 228, 24, 24);
+            }
+
+            if (xm > 0 && ym < 0) {
+                this.drawTexturedModalRect(xx + xm * 24 * h1, yy + ym * 24 * v, 120, 228, 24, 24);
+            }
+        }
+
+        v += bigCorner ? 1 : 0;
+
+        for (h1 = (byte) (h1 + (bigCorner ? 2 : 1)); h1 < xd; ++h1) {
+            this.drawTexturedModalRect(xx + xm * 24 * h1, yy + ym * 24 * v, 24, 228, 24, 24);
+        }
+
+        GL11.glBlendFunc(770, 771);
+        GL11.glDisable(3042);
+        GL11.glAlphaFunc(516, 0.1F);
+        GL11.glPopMatrix();
+        this.zLevel = zt;
+    }
+
+    public static void drawForbidden(double x, double y) {
+        int count = FMLClientHandler.instance().getClient().player.ticksExisted;
+        GL11.glPushMatrix();
+        GL11.glTranslated(x, y, 0.0D);
+        UtilsFX.renderQuadCentered(UtilsFX.nodeTexture, 32, 32, 160 + count % 32, 90.0F, 0.33F, 0.0F, 0.44F, 220, 1, 0.9F);
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        GL11.glPopMatrix();
+    }
+
     public void drawTexturedModalRectWithDoubles(float xCoord, float yCoord, double minU, double minV, double maxU, double maxV) {
         float f2 = 0.00390625F;
         float f3 = 0.00390625F;
@@ -1141,24 +1320,5 @@ public class GuiResearchBrowserR extends GuiResearchBrowser {
             int k = this.key.compareTo(arg.key);
             return k == 0 && this.recipe != null && arg.recipe != null ? this.recipe.compareTo(arg.recipe) : k;
         }
-    }
-
-    private static Method drawLine = null;
-
-    public void drawLine(int x, int y, int x2, int y2, float r, float g, float b, int locX, int locY, float zMod, boolean arrow, boolean flipped) {
-        if (drawLine == null) {
-            try {
-                drawLine = GuiResearchBrowser.class.getDeclaredMethod("drawLine", int.class, int.class, int.class, int.class, float.class, float.class, float.class, int.class, int.class, float.class, boolean.class, boolean.class);
-                drawLine.setAccessible(true);
-            } catch (NoSuchMethodException | SecurityException e) {
-            }
-        }
-
-        try {
-            drawLine.invoke(new GuiResearchBrowser(), x, y, x2, y2, r, g, b, locX, locY, zMod, arrow, flipped);
-        } catch (Throwable e) {
-
-        }
-
     }
 }
