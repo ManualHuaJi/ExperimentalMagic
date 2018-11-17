@@ -1,6 +1,5 @@
 package mhj.expmm.common.lib.research;
 
-import mhj.expmm.ExperimentalMagic;
 import mhj.expmm.common.block.ReferenceBookcase;
 import mhj.expmm.common.lib.research.theorycraft.*;
 import net.minecraftforge.event.CommandEvent;
@@ -17,12 +16,9 @@ import java.lang.reflect.Method;
 import static thaumcraft.api.research.ResearchCategories.getResearchCategory;
 
 public class ResearchLoader {
-
-    public static final OnetimeCaller init = new OnetimeCaller(ResearchLoader::$init);
-    public static final OnetimeCaller clInit = new OnetimeCaller(ResearchLoader::$);
-
-    public static void init() {
+    public ResearchLoader() {
         initCard();
+        init();
     }
 
     public static Class[] card = {
@@ -36,32 +32,88 @@ public class ResearchLoader {
         }
     }
 
-    public static void $init() {
-        new RI().setBaseInfo("EXPMMFIRST", "expmmfisrt", 0, 0)
+    public static void init() {
+        new RI().setBaseInfo("EXPMMFIRST", 0, 0)
                 .setSpiky()
                 .setRound()
-                .setIcons("exomm:texture/misc/cat.png")
+                .setIcons("expmm:texture/misc/cat.png")
                 .setParents("FIRSTSTEPS")
                 .setStages(new RP()
                         .setText("research.EXPMMFIRST.stage.1")
                         .registerResearchPages()).registerResearchItem();
-        new RI().setBaseInfo("FOCUSREDEYE", "focusredeye", 0, 5)
+
+        new RI().setBaseInfo("EFDEADTHMAGIC", 0, -2)
                 .setIcons("thaumcraft:textures/research/cat_auromancy.png")
                 .setParents("BASEAUROMANCY", "EXPMMFIRST")
                 .setReverse()
                 .setStages(new RP()
-                        .setText("research.FOCUSREDEYE.pages.1")
+                        .setText("research.EFDEADTHMAGIC.pages.1")
                         .setKnow(new ResearchStage.Knowledge(IPlayerKnowledge.EnumKnowledgeType.THEORY, getResearchCategory("AUROMANCY"), 2))
                         .registerResearchPages())
                 .registerResearchItem();
-        new RI().setBaseInfo("FOCUSGOLDENEYE", "FOCUSGOLDENEYE", 2, 6)
+
+        new RI().setBaseInfo("EFGOLDENEYE", 2, -3)
                 .setIcons("expmm:textures/item/foci/goldeneye.png")
-                .setParents("FOCUSREDEYE")
+                .setParents("EFDEADTHMAGIC")
                 .setReverse()
                 .setStages(new RP()
-                        .setText("research.FOCUSGOLDENEYE.pages.1")
+                        .setText("research.EFGOLDENEYE.pages.1")
                         .setKnow(new ResearchStage.Knowledge(IPlayerKnowledge.EnumKnowledgeType.THEORY, getResearchCategory("AUROMANCY"), 2))
                         .registerResearchPages()).registerResearchItem();
+
+        new RI().setBaseInfo("EFMINDSEYE", -2, 3)
+                .setIcons("expmm:textures/item/foci/goldeneye.png")
+                .setParents("EXPMMFIRST")
+                .setReverse()
+                .setStages(new RP()
+                        .setText("research.EFMINDSEYE.pages.1")
+                        .setKnow(new ResearchStage.Knowledge(IPlayerKnowledge.EnumKnowledgeType.THEORY, getResearchCategory("AUROMANCY"), 2))
+                        .registerResearchPages()).registerResearchItem();
+
+        new RI().setBaseInfo("EFFOGGYNIGHT", 2, 4)
+                .setIcons("")
+                .setParents("EXPMMFIRST")
+                .setReverse()
+                .setStages(new RP()
+                        .setText("research.EFFOGGYNIGHT.pages.1")
+                        .setKnow(new ResearchStage.Knowledge(IPlayerKnowledge.EnumKnowledgeType.THEORY, getResearchCategory("AUROMANCY"), 2))
+                        .registerResearchPages()) .registerResearchItem();;
+
+        new RI().setBaseInfo("EFRUSTYMEMORY", -2, 4)
+                .setIcons("")
+                .setParents("EXPMMFIRST")
+                .setReverse()
+                .setStages(new RP()
+                        .setText("research.EFRUSTYMEMORY.pages.1")
+                        .setKnow(new ResearchStage.Knowledge(IPlayerKnowledge.EnumKnowledgeType.THEORY, getResearchCategory("AUROMANCY"), 2))
+                        .registerResearchPages()) .registerResearchItem();;
+
+        new RI().setBaseInfo("EFSCRIPT", 2, 5)
+                .setIcons("")
+                .setParents("EXPMMFIRST")
+                .setReverse()
+                .setStages(new RP()
+                        .setText("research.EFSCRIPT.pages.1")
+                        .setKnow(new ResearchStage.Knowledge(IPlayerKnowledge.EnumKnowledgeType.THEORY, getResearchCategory("AUROMANCY"), 2))
+                        .registerResearchPages()) .registerResearchItem();;
+
+        new RI().setBaseInfo("EFAFTERIMAGE", -2, 5)
+                .setIcons("")
+                .setParents("EXPMMFIRST")
+                .setReverse()
+                .setStages(new RP()
+                        .setText("research.EFAFTERIMAGE.pages.1")
+                        .setKnow(new ResearchStage.Knowledge(IPlayerKnowledge.EnumKnowledgeType.THEORY, getResearchCategory("AUROMANCY"), 2))
+                        .registerResearchPages()) .registerResearchItem();;
+
+        new RI().setBaseInfo("EFCELESTIAL", -2, 6)
+                .setIcons("")
+                .setParents("EXPMMFIRST")
+                .setReverse()
+                .setStages(new RP()
+                        .setText("research.EFCELESTIAL.pages.1")
+                        .setKnow(new ResearchStage.Knowledge(IPlayerKnowledge.EnumKnowledgeType.THEORY, getResearchCategory("AUROMANCY"), 2))
+                        .registerResearchPages()) .registerResearchItem();;
     }
 
     private static class RA extends ResearchAddenda {
@@ -71,23 +123,15 @@ public class ResearchLoader {
     }
 
     private static class RI extends ResearchItem {
-        public ResearchItem setBaseInfo(String key, String name, int x, int y) {
-            return super.setBaseInfo(key, "EXPMM", "research." + ExperimentalMagic.MODID + "." + name + ".name", x, y);
+        public ResearchItem setBaseInfo(String key, int x, int y) {
+            return super.setBaseInfo(key, "EXPMM", "research." + key + ".name", x, y);
         }
     }
 
     @SubscribeEvent
     public void commandEvent(final CommandEvent ce) {
         if (ce.getCommand() instanceof CommandThaumcraft && ce.getParameters().length > 0 && ce.getParameters()[0].equalsIgnoreCase("reload")) {
-            new Thread(() -> {
-                while (ExperimentalMagic.EXPMM.research.containsKey("EXPMMFIRST")) {
-                    try {
-                        Thread.sleep(10L);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
+            init();
         }
     }
 
@@ -101,17 +145,10 @@ public class ResearchLoader {
             } catch (NoSuchMethodException | SecurityException e) {
             }
         }
-
         try {
             addResearchToCategory.invoke(null, ri);
         } catch (Throwable e) {
-
         }
-
     }
-
-    private static void $() {
-    }
-
 
 }

@@ -34,7 +34,7 @@ public class ExperimentalMagic {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(new ResearchLoader());
-        ResearchLoader.clInit.call();
+
         proxy.preInit(event);
     }
 
@@ -42,14 +42,13 @@ public class ExperimentalMagic {
     public void Init(FMLInitializationEvent event) {
         new EventLoader();
         EXPMM = ResearchCategories.registerCategory("EXPMM", (String) null, (AspectList) null, new ResourceLocation("expmm", "texture/misc/cat.png"), new ResourceLocation("thaumcraft", "textures/gui/gui_research_back_1.jpg"), null);
-        ResearchLoader.$init();
+
         proxy.Init(event);
     }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         proxy.postInit(event);
-        ResearchLoader.init.call();
     }
 
     @Mod.EventHandler

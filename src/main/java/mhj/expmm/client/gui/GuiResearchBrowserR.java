@@ -828,7 +828,7 @@ public class GuiResearchBrowserR extends GuiScreen {
             ArrayList<String> text = new ArrayList();
             text.add("§6" + this.currentHighlight.getLocalizedName());
             if (this.currentHighlight.getCategory().equals("EXPMM")) {
-                text.add("@@" + TextFormatting.BLUE + I18n.translateToLocal("expmm.research." + this.currentHighlight.getKey() + ".text"));
+                text.add("@@" + TextFormatting.BLUE + I18n.translateToLocal("research." + this.currentHighlight.getKey() + ".tile"));
             }
             int a;
             if (this.canUnlockResearch(this.currentHighlight)) {

@@ -16,13 +16,13 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         TileEntityLoader.registerTileEntities();
-      BlockLoader.regitser();
+        BlockLoader.regitser();
     }
 
 
     public void Init(FMLInitializationEvent event) {
         ItemLoader.init();
-        ResearchLoader.init();
+        new ResearchLoader();
         new GuiLoader();
         new EventLoader();
 

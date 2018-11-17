@@ -24,17 +24,17 @@ public class FocusEffectTeleportation extends FocusEffect {
 
     @Override
     public int getComplexity() {
-        return 0;
+        return 2;
     }
 
     @Override
     public Aspect getAspect() {
-        return null;
+        return Aspect.MOTION;
     }
 
     @Override
     public String getKey() {
-        return null;
+        return "expmm.teleportation";
     }
 
     @Override
