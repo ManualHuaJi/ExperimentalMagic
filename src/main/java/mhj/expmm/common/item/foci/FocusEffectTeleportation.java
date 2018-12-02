@@ -11,7 +11,7 @@ import javax.annotation.Nullable;
 /**
  * @Author: ManualHuaJi
  */
-public class FocusEffectTeleportation extends FocusEffect {
+public class FocusEffectTeleportation extends FocusEffectEXPMM{
     @Override
     public boolean execute(RayTraceResult target, @Nullable Trajectory trajectory, float finalPower, int num) {
         return false;
@@ -34,11 +34,13 @@ public class FocusEffectTeleportation extends FocusEffect {
 
     @Override
     public String getKey() {
-        return "expmm.teleportation";
+        return "expmm.TELEPORTATION";
     }
 
     @Override
     public String getResearch() {
         return null;
     }
+
+
 }

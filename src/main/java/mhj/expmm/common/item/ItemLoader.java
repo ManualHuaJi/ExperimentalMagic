@@ -1,11 +1,14 @@
 package mhj.expmm.common.item;
 
 import mhj.expmm.ExperimentalMagic;
+import mhj.expmm.common.item.foci.FocusEffectEmbellishmentDeathMagic;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
+import thaumcraft.api.casters.FocusEngine;
 
 import static mhj.expmm.common.item.ItemsEXPMM.itemReference;
 
@@ -18,6 +21,7 @@ public class ItemLoader {
             itemReference
     };
 
+
     @SubscribeEvent
     public static void registerItem(RegistryEvent.Register<Item> itemRegister) {
         IForgeRegistry<Item> ir = itemRegister.getRegistry();
@@ -26,7 +30,11 @@ public class ItemLoader {
         }
     }
 
-    public static void init() {
+
+    public static void registerFocus() {
+        FocusEngine.registerElement(FocusEffectEmbellishmentDeathMagic.class, new ResourceLocation("expmm", "textures/foci/deathmagic.png"), 15734052);
+
     }
+
 
 }

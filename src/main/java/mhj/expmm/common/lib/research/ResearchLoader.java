@@ -36,14 +36,14 @@ public class ResearchLoader {
         new RI().setBaseInfo("EXPMMFIRST", 0, 0)
                 .setSpiky()
                 .setRound()
-                .setIcons("expmm:texture/misc/cat.png")
+                .setIcons("expmm:textures/misc/cat.png")
                 .setParents("FIRSTSTEPS")
                 .setStages(new RP()
                         .setText("research.EXPMMFIRST.stage.1")
                         .registerResearchPages()).registerResearchItem();
 
         new RI().setBaseInfo("EFDEADTHMAGIC", 0, -2)
-                .setIcons("thaumcraft:textures/research/cat_auromancy.png")
+                .setIcons("focus:expmm.EF.DEATHMAGIC")
                 .setParents("BASEAUROMANCY", "EXPMMFIRST")
                 .setReverse()
                 .setStages(new RP()
@@ -53,7 +53,7 @@ public class ResearchLoader {
                 .registerResearchItem();
 
         new RI().setBaseInfo("EFGOLDENEYE", 2, -3)
-                .setIcons("expmm:textures/item/foci/goldeneye.png")
+//                .setIcons("expmm:textures/item/foci/goldeneye.png")
                 .setParents("EFDEADTHMAGIC")
                 .setReverse()
                 .setStages(new RP()
@@ -62,7 +62,7 @@ public class ResearchLoader {
                         .registerResearchPages()).registerResearchItem();
 
         new RI().setBaseInfo("EFMINDSEYE", -2, 3)
-                .setIcons("expmm:textures/item/foci/goldeneye.png")
+//                .setIcons("expmm:textures/item/foci/goldeneye.png")
                 .setParents("EXPMMFIRST")
                 .setReverse()
                 .setStages(new RP()
@@ -71,7 +71,7 @@ public class ResearchLoader {
                         .registerResearchPages()).registerResearchItem();
 
         new RI().setBaseInfo("EFFOGGYNIGHT", 2, 4)
-                .setIcons("")
+//                .setIcons("")
                 .setParents("EXPMMFIRST")
                 .setReverse()
                 .setStages(new RP()
@@ -80,7 +80,7 @@ public class ResearchLoader {
                         .registerResearchPages()) .registerResearchItem();;
 
         new RI().setBaseInfo("EFRUSTYMEMORY", -2, 4)
-                .setIcons("")
+//                .setIcons("")
                 .setParents("EXPMMFIRST")
                 .setReverse()
                 .setStages(new RP()
@@ -88,17 +88,9 @@ public class ResearchLoader {
                         .setKnow(new ResearchStage.Knowledge(IPlayerKnowledge.EnumKnowledgeType.THEORY, getResearchCategory("AUROMANCY"), 2))
                         .registerResearchPages()) .registerResearchItem();;
 
-        new RI().setBaseInfo("EFSCRIPT", 2, 5)
-                .setIcons("")
-                .setParents("EXPMMFIRST")
-                .setReverse()
-                .setStages(new RP()
-                        .setText("research.EFSCRIPT.pages.1")
-                        .setKnow(new ResearchStage.Knowledge(IPlayerKnowledge.EnumKnowledgeType.THEORY, getResearchCategory("AUROMANCY"), 2))
-                        .registerResearchPages()) .registerResearchItem();;
 
         new RI().setBaseInfo("EFAFTERIMAGE", -2, 5)
-                .setIcons("")
+//                .setIcons("")
                 .setParents("EXPMMFIRST")
                 .setReverse()
                 .setStages(new RP()
@@ -107,7 +99,7 @@ public class ResearchLoader {
                         .registerResearchPages()) .registerResearchItem();;
 
         new RI().setBaseInfo("EFCELESTIAL", -2, 6)
-                .setIcons("")
+//                .setIcons("")
                 .setParents("EXPMMFIRST")
                 .setReverse()
                 .setStages(new RP()

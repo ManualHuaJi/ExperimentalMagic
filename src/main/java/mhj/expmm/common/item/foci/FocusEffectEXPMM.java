@@ -3,14 +3,19 @@ package mhj.expmm.common.item.foci;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.casters.FocusEffect;
 import thaumcraft.api.casters.Trajectory;
+
+import javax.annotation.Nullable;
 
 /**
  * @Author: ManualHuaJi
  */
-public class FocusEffectEmbellishmentRustyMemory extends FocusEffectEmbellishment {
+public abstract class FocusEffectEXPMM extends FocusEffect {
+
+
     @Override
-    public boolean execute(RayTraceResult target, Trajectory trajectory, float finalPower, int num) {
+    public boolean execute(RayTraceResult target, @Nullable Trajectory trajectory, float finalPower, int num) {
         return false;
     }
 
@@ -21,22 +26,17 @@ public class FocusEffectEmbellishmentRustyMemory extends FocusEffectEmbellishmen
 
     @Override
     public int getComplexity() {
-        return 4;
+        return 0;
     }
 
     @Override
     public Aspect getAspect() {
-        return Aspect.MIND;
-    }
-
-    @Override
-    public EnumSupplyType[] willSupply() {
-        return new EnumSupplyType[]{EnumSupplyType.TARGET};
+        return null;
     }
 
     @Override
     public String getKey() {
-        return "expmm.EF.RUSTYMEMORY";
+        return null;
     }
 
     @Override

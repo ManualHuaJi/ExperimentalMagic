@@ -3,7 +3,6 @@ package mhj.expmm.common.item.foci;
 import net.minecraft.util.math.RayTraceResult;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.casters.FocusEffect;
-import thaumcraft.api.casters.FocusMod;
 import thaumcraft.api.casters.Trajectory;
 
 /**
@@ -11,18 +10,14 @@ import thaumcraft.api.casters.Trajectory;
  */
 public abstract class FocusEffectEmbellishment extends FocusEffect {
 
-    public boolean execute(RayTraceResult target, Trajectory trajectory, float finalPower, int num) {
-        return false;
-    }
+    @Override
+    public abstract boolean execute(RayTraceResult target, Trajectory trajectory, float finalPower, int num);
 
     @Override
     public abstract int getComplexity();
 
     @Override
     public abstract Aspect getAspect();
-
-    @Override
-    public abstract EnumSupplyType[] mustBeSupplied();
 
     @Override
     public abstract EnumSupplyType[] willSupply();
@@ -37,4 +32,5 @@ public abstract class FocusEffectEmbellishment extends FocusEffect {
     public EnumUnitType getType() {
         return EnumUnitType.MOD;
     }
+
 }

@@ -34,6 +34,8 @@ public class BlockLoader {
         }
     }
 
+
+
     public static Block registerBlockSpecial(Block block, Class clazz) {
         ForgeRegistries.BLOCKS.register(block);
         try {

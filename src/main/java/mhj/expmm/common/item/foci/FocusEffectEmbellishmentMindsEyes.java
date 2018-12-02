@@ -8,7 +8,7 @@ import thaumcraft.api.casters.Trajectory;
 /**
  * @Author: ManualHuaJi
  */
-public class FocusEffectEmbellishmentRustyMemory extends FocusEffectEmbellishment {
+public class FocusEffectEmbellishmentMindsEyes extends FocusEffectEmbellishment {
     @Override
     public boolean execute(RayTraceResult target, Trajectory trajectory, float finalPower, int num) {
         return false;
@@ -21,13 +21,15 @@ public class FocusEffectEmbellishmentRustyMemory extends FocusEffectEmbellishmen
 
     @Override
     public int getComplexity() {
-        return 4;
+        return 3;
     }
+
 
     @Override
     public Aspect getAspect() {
-        return Aspect.MIND;
+        return Aspect.AVERSION;
     }
+
 
     @Override
     public EnumSupplyType[] willSupply() {
@@ -36,12 +38,12 @@ public class FocusEffectEmbellishmentRustyMemory extends FocusEffectEmbellishmen
 
     @Override
     public String getKey() {
-        return "expmm.EF.RUSTYMEMORY";
+        return"expmm.EF.MINDSEYES";
     }
 
     @Override
     public String getResearch() {
-        return null;
+        return "EEMINDEYE";
     }
 
 

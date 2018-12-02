@@ -21,7 +21,7 @@ public class CommonProxy {
 
 
     public void Init(FMLInitializationEvent event) {
-        ItemLoader.init();
+        ItemLoader.registerFocus();
         new ResearchLoader();
         new GuiLoader();
         new EventLoader();

@@ -94,7 +94,7 @@ public class GuiResearchBrowserR extends GuiScreen {
     static int catScrollMax = 0;
     public int addonShift = 0;
     private ArrayList<String> invisible = new ArrayList();
-    ArrayList<Pair<String, GuiResearchBrowserR.SearchResult>> searchResults = new ArrayList();
+    ArrayList<Pair<String, SearchResult>> searchResults = new ArrayList();
     ResourceLocation tx1 = new ResourceLocation("thaumcraft", "textures/gui/gui_research_browser.png");
 
     public GuiResearchBrowserR() {
@@ -122,7 +122,7 @@ public class GuiResearchBrowserR extends GuiScreen {
         }
 
         this.buttonList.clear();
-        this.buttonList.add(new GuiResearchBrowserR.GuiSearchButton(2, 1, this.height - 17, 16, 16, I18n.translateToLocalFormatted("tc.search", new Object[0])));
+        this.buttonList.add(new GuiSearchButton(2, 1, this.height - 17, 16, 16, I18n.translateToLocalFormatted("tc.search", new Object[0])));
         Keyboard.enableRepeatEvents(true);
         this.searchField = new GuiTextField(0, this.fontRenderer, 20, 20, 89, this.fontRenderer.FONT_HEIGHT);
         this.searchField.setMaxStringLength(15);
@@ -162,8 +162,8 @@ public class GuiResearchBrowserR extends GuiScreen {
                     if (!var3.hasNext()) {
                         if (count > limit || count < catScrollPos) {
                             this.addonShift = (this.screenY - 28) % 24 / 2;
-                            this.buttonList.add(new GuiResearchBrowserR.GuiScrollButton(false, 3, this.width - 14, 20, 10, 11, ""));
-                            this.buttonList.add(new GuiResearchBrowserR.GuiScrollButton(true, 4, this.width - 14, this.screenY + 1, 10, 11, ""));
+                            this.buttonList.add(new GuiScrollButton(false, 3, this.width - 14, 20, 10, 11, ""));
+                            this.buttonList.add(new GuiScrollButton(true, 4, this.width - 14, this.screenY + 1, 10, 11, ""));
                         }
 
                         catScrollMax = count - limit;
@@ -237,7 +237,7 @@ public class GuiResearchBrowserR extends GuiScreen {
                     String tcc = var10[var12];
                     if (tcc.equals(rcl)) {
                         this.categoriesTC.add(rcl);
-                        this.buttonList.add(new GuiResearchBrowserR.GuiCategoryButton(rc, rcl, false, 20 + this.categoriesTC.size(), 1, 10 + this.categoriesTC.size() * 24, 16, 16, I18n.translateToLocalFormatted("tc.research_category." + rcl, new Object[0]), v));
+                        this.buttonList.add(new GuiCategoryButton(rc, rcl, false, 20 + this.categoriesTC.size(), 1, 10 + this.categoriesTC.size() * 24, 16, 16, I18n.translateToLocalFormatted("tc.research_category." + rcl, new Object[0]), v));
                         continue label112;
                     }
                 }
@@ -245,7 +245,7 @@ public class GuiResearchBrowserR extends GuiScreen {
                 ++count;
                 if (count <= limit + catScrollPos && count - 1 >= catScrollPos) {
                     this.categoriesOther.add(rcl);
-                    this.buttonList.add(new GuiResearchBrowserR.GuiCategoryButton(rc, rcl, true, 50 + this.categoriesOther.size(), this.width - 17, 10 + this.categoriesOther.size() * 24, 16, 16, I18n.translateToLocalFormatted("tc.research_category." + rcl, new Object[0]), v));
+                    this.buttonList.add(new GuiCategoryButton(rc, rcl, true, 50 + this.categoriesOther.size(), this.width - 17, 10 + this.categoriesOther.size() * 24, 16, 16, I18n.translateToLocalFormatted("tc.research_category." + rcl, new Object[0]), v));
                 }
             }
         }
@@ -325,7 +325,7 @@ public class GuiResearchBrowserR extends GuiScreen {
         while (var2.hasNext()) {
             cat = (String) var2.next();
             if (cat.toLowerCase().contains(s1)) {
-                this.searchResults.add(Pair.of(I18n.translateToLocalFormatted("tc.research_category." + cat, new Object[0]), new GuiResearchBrowserR.SearchResult(cat, (ResourceLocation) null, true)));
+                this.searchResults.add(Pair.of(I18n.translateToLocalFormatted("tc.research_category." + cat, new Object[0]), new SearchResult(cat, (ResourceLocation) null, true)));
             }
         }
 
@@ -334,7 +334,7 @@ public class GuiResearchBrowserR extends GuiScreen {
         while (var2.hasNext()) {
             cat = (String) var2.next();
             if (cat.toLowerCase().contains(s1)) {
-                this.searchResults.add(Pair.of(I18n.translateToLocalFormatted("tc.research_category." + cat, new Object[0]), new GuiResearchBrowserR.SearchResult(cat, (ResourceLocation) null, true)));
+                this.searchResults.add(Pair.of(I18n.translateToLocalFormatted("tc.research_category." + cat, new Object[0]), new SearchResult(cat, (ResourceLocation) null, true)));
             }
         }
 
@@ -362,7 +362,7 @@ public class GuiResearchBrowserR extends GuiScreen {
                         } while (ri.getLocalizedName() == null);
 
                         if (ri.getLocalizedName().toLowerCase().contains(s1)) {
-                            this.searchResults.add(Pair.of(ri.getLocalizedName(), new GuiResearchBrowserR.SearchResult(pre, (ResourceLocation) null)));
+                            this.searchResults.add(Pair.of(ri.getLocalizedName(), new SearchResult(pre, (ResourceLocation) null)));
                         }
 
                         stage = ThaumcraftCapabilities.getKnowledge(this.player).getResearchStage(pre);
@@ -400,7 +400,7 @@ public class GuiResearchBrowserR extends GuiScreen {
                         }
 
                         if (ro != null && !ro.isEmpty() && ro.getDisplayName().toLowerCase().contains(s1)) {
-                            this.searchResults.add(Pair.of(ro.getDisplayName(), new GuiResearchBrowserR.SearchResult(pre, rec)));
+                            this.searchResults.add(Pair.of(ro.getDisplayName(), new SearchResult(pre, rec)));
                         }
                     }
                 }
@@ -490,7 +490,7 @@ public class GuiResearchBrowserR extends GuiScreen {
             while (var7.hasNext()) {
                 Pair p = (Pair) var7.next();
                 GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-                GuiResearchBrowserR.SearchResult sr = (GuiResearchBrowserR.SearchResult) p.getRight();
+                SearchResult sr = (SearchResult) p.getRight();
                 int color = sr.cat ? 14527146 : (sr.recipe == null ? 14540253 : 11184861);
                 if (sr.recipe != null) {
                     this.mc.renderEngine.bindTexture(this.tx1);
@@ -778,10 +778,6 @@ public class GuiResearchBrowserR extends GuiScreen {
 
     }
 
-    /**
-     * Original version {@link thaumcraft.client.gui.GuiResearchBrowser}
-     *
-     */
     private void genResearchBackgroundFixedPost(int mx, int my, float par3, int locX, int locY) {
         this.mc.renderEngine.bindTexture(this.tx1);
         GL11.glEnable(3042);
@@ -907,7 +903,7 @@ public class GuiResearchBrowserR extends GuiScreen {
 
                 while (var5.hasNext()) {
                     Pair p = (Pair) var5.next();
-                    GuiResearchBrowserR.SearchResult sr = (GuiResearchBrowserR.SearchResult) p.getRight();
+                    SearchResult sr = (SearchResult) p.getRight();
                     if (mx > 22 && mx < 18 + this.screenX && my >= 32 + q * 10 && my < 40 + q * 10) {
                         if (ThaumcraftCapabilities.knowsResearch(this.player, new String[]{sr.key}) && !sr.cat) {
                             this.mc.displayGuiScreen(new GuiResearchPage(ResearchCategories.getResearch(sr.key), sr.recipe, this.guiMapX, this.guiMapY));
@@ -965,12 +961,12 @@ public class GuiResearchBrowserR extends GuiScreen {
             this.updateResearch();
         }
 
-        if (button.id >= 20 && button instanceof GuiResearchBrowserR.GuiCategoryButton && ((GuiResearchBrowserR.GuiCategoryButton) button).key != selectedCategory) {
+        if (button.id >= 20 && button instanceof GuiCategoryButton && ((GuiCategoryButton) button).key != selectedCategory) {
             searching = false;
             this.searchField.setVisible(false);
             this.searchField.setCanLoseFocus(true);
             this.searchField.setFocused(false);
-            selectedCategory = ((GuiResearchBrowserR.GuiCategoryButton) button).key;
+            selectedCategory = ((GuiCategoryButton) button).key;
             this.updateResearch();
             this.guiMapX = this.tempMapX = (double) ((guiBoundsLeft + guiBoundsRight) / 2);
             this.guiMapY = this.tempMapY = (double) ((guiBoundsBottom + guiBoundsTop) / 2);
@@ -1106,6 +1102,7 @@ public class GuiResearchBrowserR extends GuiScreen {
         this.zLevel = zt;
     }
 
+
     public static void drawForbidden(double x, double y) {
         int count = FMLClientHandler.instance().getClient().player.ticksExisted;
         GL11.glPushMatrix();
@@ -1140,7 +1137,7 @@ public class GuiResearchBrowserR extends GuiScreen {
                 GlStateManager.enableBlend();
                 GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
                 GlStateManager.blendFunc(770, 771);
-                mc.renderEngine.bindTexture(GuiResearchBrowserR.this.tx1);
+                mc.renderEngine.bindTexture(tx1);
                 GL11.glPushMatrix();
                 if (this.hovered) {
                     GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -1175,7 +1172,7 @@ public class GuiResearchBrowserR extends GuiScreen {
                 GlStateManager.enableBlend();
                 GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
                 GlStateManager.blendFunc(770, 771);
-                mc.renderEngine.bindTexture(GuiResearchBrowserR.this.tx1);
+                mc.renderEngine.bindTexture(tx1);
                 GL11.glPushMatrix();
                 if (this.hovered) {
                     GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -1207,49 +1204,49 @@ public class GuiResearchBrowserR extends GuiScreen {
 
         @Override
         public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
-            return this.enabled && this.visible && mouseX >= this.x && mouseY >= this.y + GuiResearchBrowserR.this.addonShift && mouseX < this.x + this.width && mouseY < this.y + this.height + GuiResearchBrowserR.this.addonShift;
+            return this.enabled && this.visible && mouseX >= this.x && mouseY >= this.y + addonShift && mouseX < this.x + this.width && mouseY < this.y + this.height + addonShift;
         }
 
         @Override
         public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
             if (this.visible) {
-                this.hovered = mouseX >= this.x && mouseY >= this.y + GuiResearchBrowserR.this.addonShift && mouseX < this.x + this.width && mouseY < this.y + this.height + GuiResearchBrowserR.this.addonShift;
+                this.hovered = mouseX >= this.x && mouseY >= this.y + addonShift && mouseX < this.x + this.width && mouseY < this.y + this.height + addonShift;
                 GlStateManager.enableBlend();
                 GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
                 GlStateManager.blendFunc(770, 771);
-                mc.renderEngine.bindTexture(GuiResearchBrowserR.this.tx1);
+                mc.renderEngine.bindTexture(tx1);
                 GL11.glPushMatrix();
-                if (!GuiResearchBrowserR.selectedCategory.equals(this.key)) {
+                if (!selectedCategory.equals(this.key)) {
                     GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                 } else {
                     GL11.glColor4f(0.6F, 1.0F, 1.0F, 1.0F);
                 }
 
-                this.drawTexturedModalRect(this.x - 3, this.y - 3 + GuiResearchBrowserR.this.addonShift, 13, 13, 22, 22);
+                this.drawTexturedModalRect(this.x - 3, this.y - 3 + addonShift, 13, 13, 22, 22);
                 GL11.glPopMatrix();
                 GL11.glPushMatrix();
                 mc.renderEngine.bindTexture(this.rc.icon);
-                if (!GuiResearchBrowserR.selectedCategory.equals(this.key) && !this.hovered) {
+                if (!selectedCategory.equals(this.key) && !this.hovered) {
                     GL11.glColor4f(0.66F, 0.66F, 0.66F, 0.8F);
                 } else {
                     GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                 }
 
-                UtilsFX.drawTexturedQuadFull((float) this.x, (float) (this.y + GuiResearchBrowserR.this.addonShift), -80.0D);
+                UtilsFX.drawTexturedQuadFull((float) this.x, (float) (this.y + addonShift), -80.0D);
                 GL11.glPopMatrix();
-                mc.renderEngine.bindTexture(GuiResearchBrowserR.this.tx1);
+                mc.renderEngine.bindTexture(tx1);
                 boolean nr = false;
                 boolean np = false;
                 Iterator var7 = this.rc.research.keySet().iterator();
 
                 while (var7.hasNext()) {
                     String rk = (String) var7.next();
-                    if (ThaumcraftCapabilities.knowsResearch(GuiResearchBrowserR.this.player, new String[]{rk})) {
-                        if (!nr && ThaumcraftCapabilities.getKnowledge(GuiResearchBrowserR.this.player).hasResearchFlag(rk, EnumResearchFlag.RESEARCH)) {
+                    if (ThaumcraftCapabilities.knowsResearch(player, new String[]{rk})) {
+                        if (!nr && ThaumcraftCapabilities.getKnowledge(player).hasResearchFlag(rk, EnumResearchFlag.RESEARCH)) {
                             nr = true;
                         }
 
-                        if (!np && ThaumcraftCapabilities.getKnowledge(GuiResearchBrowserR.this.player).hasResearchFlag(rk, EnumResearchFlag.PAGE)) {
+                        if (!np && ThaumcraftCapabilities.getKnowledge(player).hasResearchFlag(rk, EnumResearchFlag.PAGE)) {
                             np = true;
                         }
 
@@ -1262,7 +1259,7 @@ public class GuiResearchBrowserR extends GuiScreen {
                 if (nr) {
                     GL11.glPushMatrix();
                     GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.7F);
-                    GL11.glTranslated((double) (this.x - 2), (double) (this.y + GuiResearchBrowserR.this.addonShift - 2), 0.0D);
+                    GL11.glTranslated((double) (this.x - 2), (double) (this.y + addonShift - 2), 0.0D);
                     GL11.glScaled(0.25D, 0.25D, 1.0D);
                     this.drawTexturedModalRect(0, 0, 176, 16, 32, 32);
                     GL11.glPopMatrix();
@@ -1271,7 +1268,7 @@ public class GuiResearchBrowserR extends GuiScreen {
                 if (np) {
                     GL11.glPushMatrix();
                     GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.7F);
-                    GL11.glTranslated((double) (this.x - 2), (double) (this.y + GuiResearchBrowserR.this.addonShift + 9), 0.0D);
+                    GL11.glTranslated((double) (this.x - 2), (double) (this.y + addonShift + 9), 0.0D);
                     GL11.glScaled(0.25D, 0.25D, 1.0D);
                     this.drawTexturedModalRect(0, 0, 208, 16, 32, 32);
                     GL11.glPopMatrix();
@@ -1279,15 +1276,15 @@ public class GuiResearchBrowserR extends GuiScreen {
 
                 if (this.hovered) {
                     String dp = this.displayString + " (" + this.completion + "%)";
-                    this.drawString(mc.fontRenderer, dp, !this.flip ? this.x + 22 : GuiResearchBrowserR.this.screenX + 9 - mc.fontRenderer.getStringWidth(dp), this.y + 4 + GuiResearchBrowserR.this.addonShift, 16777215);
+                    this.drawString(mc.fontRenderer, dp, !this.flip ? this.x + 22 : screenX + 9 - mc.fontRenderer.getStringWidth(dp), this.y + 4 + addonShift, 16777215);
                     int t = 9;
                     if (nr) {
-                        this.drawString(mc.fontRenderer, I18n.translateToLocal("tc.research.newresearch"), !this.flip ? this.x + 22 : GuiResearchBrowserR.this.screenX + 9 - mc.fontRenderer.getStringWidth(I18n.translateToLocal("tc.research.newresearch")), this.y + 4 + t + GuiResearchBrowserR.this.addonShift, 16777215);
+                        this.drawString(mc.fontRenderer, I18n.translateToLocal("tc.research.newresearch"), !this.flip ? this.x + 22 : screenX + 9 - mc.fontRenderer.getStringWidth(I18n.translateToLocal("tc.research.newresearch")), this.y + 4 + t + addonShift, 16777215);
                         t += 9;
                     }
 
                     if (np) {
-                        this.drawString(mc.fontRenderer, I18n.translateToLocal("tc.research.newpage"), !this.flip ? this.x + 22 : GuiResearchBrowserR.this.screenX + 9 - mc.fontRenderer.getStringWidth(I18n.translateToLocal("tc.research.newpage")), this.y + 4 + t + GuiResearchBrowserR.this.addonShift, 16777215);
+                        this.drawString(mc.fontRenderer, I18n.translateToLocal("tc.research.newpage"), !this.flip ? this.x + 22 : screenX + 9 - mc.fontRenderer.getStringWidth(I18n.translateToLocal("tc.research.newpage")), this.y + 4 + t + addonShift, 16777215);
                     }
                 }
 
@@ -1316,9 +1313,10 @@ public class GuiResearchBrowserR extends GuiScreen {
 
         @Override
         public int compareTo(Object arg0) {
-            GuiResearchBrowserR.SearchResult arg = (GuiResearchBrowserR.SearchResult) arg0;
+            SearchResult arg = (SearchResult) arg0;
             int k = this.key.compareTo(arg.key);
             return k == 0 && this.recipe != null && arg.recipe != null ? this.recipe.compareTo(arg.recipe) : k;
         }
     }
 }
+
