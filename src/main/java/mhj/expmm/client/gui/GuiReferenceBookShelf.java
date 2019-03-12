@@ -12,11 +12,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 @SideOnly(Side.CLIENT)
 public class GuiReferenceBookShelf extends GuiContainer {
+    private ResourceLocation texture1 = new ResourceLocation(ExperimentalMagic.MODID, "textures/gui/guisbookshelf.png");
+
     public GuiReferenceBookShelf(ContainerReferenceBookshelf inventorySlotsIn) {
         super(inventorySlotsIn);
     }
-
-    private ResourceLocation texture1 = new ResourceLocation(ExperimentalMagic.MODID, "textures/gui/guisbookshelf.png");
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {

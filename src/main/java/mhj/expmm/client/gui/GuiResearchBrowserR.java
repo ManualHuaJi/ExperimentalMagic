@@ -58,10 +58,17 @@ import java.util.*;
 @SuppressWarnings("all")
 @SideOnly(Side.CLIENT)
 public class GuiResearchBrowserR extends GuiScreen {
+    public static double lastX = -9999.0D;
+    public static double lastY = -9999.0D;
+    static String selectedCategory = null;
+    static int catScrollPos = 0;
+    static int catScrollMax = 0;
     private static int guiBoundsLeft;
     private static int guiBoundsTop;
     private static int guiBoundsRight;
     private static int guiBoundsBottom;
+    private static boolean searching = false;
+    public int addonShift = 0;
     protected int mouseX = 0;
     protected int mouseY = 0;
     protected float screenZoom = 1.0F;
@@ -71,31 +78,24 @@ public class GuiResearchBrowserR extends GuiScreen {
     protected double guiMapY;
     protected double tempMapX;
     protected double tempMapY;
-    private int isMouseButtonDown = 0;
-    public static double lastX = -9999.0D;
-    public static double lastY = -9999.0D;
     GuiResearchBrowserR instance = null;
+    long t = 0L;
+    long popuptime = 0L;
+    String popupmessage = "";
+    ArrayList<Pair<String, SearchResult>> searchResults = new ArrayList();
+    ResourceLocation tx1 = new ResourceLocation("thaumcraft", "textures/gui/gui_research_browser.png");
+    private int isMouseButtonDown = 0;
     private int screenX;
     private int screenY;
     private int startX = 16;
     private int startY = 16;
-    long t = 0L;
     private LinkedList<ResearchEntry> research = new LinkedList();
-    static String selectedCategory = null;
     private ResearchEntry currentHighlight = null;
     private EntityPlayer player = null;
-    long popuptime = 0L;
-    String popupmessage = "";
     private GuiTextField searchField;
-    private static boolean searching = false;
     private ArrayList<String> categoriesTC = new ArrayList();
     private ArrayList<String> categoriesOther = new ArrayList();
-    static int catScrollPos = 0;
-    static int catScrollMax = 0;
-    public int addonShift = 0;
     private ArrayList<String> invisible = new ArrayList();
-    ArrayList<Pair<String, SearchResult>> searchResults = new ArrayList();
-    ResourceLocation tx1 = new ResourceLocation("thaumcraft", "textures/gui/gui_research_browser.png");
 
     public GuiResearchBrowserR() {
         this.curMouseX = this.guiMapX = this.tempMapX = lastX;
@@ -109,6 +109,69 @@ public class GuiResearchBrowserR extends GuiScreen {
         this.curMouseY = this.guiMapY = this.tempMapY = y;
         this.player = Minecraft.getMinecraft().player;
         this.instance = this;
+    }
+
+    public static void drawResearchIcon(ResearchEntry iconResearch, int iconX, int iconY, float zLevel, boolean bw) {
+        if (iconResearch.getIcons() != null && iconResearch.getIcons().length > 0) {
+            int idx = (int) (System.currentTimeMillis() / 1000L % (long) iconResearch.getIcons().length);
+            GL11.glPushMatrix();
+            GL11.glEnable(3042);
+            GL11.glBlendFunc(770, 771);
+            if (iconResearch.getIcons()[idx] instanceof ResourceLocation) {
+                Minecraft.getMinecraft().renderEngine.bindTexture((ResourceLocation) iconResearch.getIcons()[idx]);
+                if (bw) {
+                    GL11.glColor4f(0.2F, 0.2F, 0.2F, 1.0F);
+                }
+
+                int w = GL11.glGetTexLevelParameteri(3553, 0, 4096);
+                int h = GL11.glGetTexLevelParameteri(3553, 0, 4097);
+                int m;
+                float q;
+                float idx1;
+                if (h > w && h % w == 0) {
+                    m = h / w;
+                    q = 16.0F / (float) m;
+                    idx1 = (float) (System.currentTimeMillis() / 150L % (long) m) * q;
+                    UtilsFX.drawTexturedQuadF((float) iconX, (float) iconY, 0.0F, idx1, 16.0F, q, (double) zLevel);
+                } else if (w > h && w % h == 0) {
+                    m = w / h;
+                    q = 16.0F / (float) m;
+                    idx1 = (float) (System.currentTimeMillis() / 150L % (long) m) * q;
+                    UtilsFX.drawTexturedQuadF((float) iconX, (float) iconY, idx1, 0.0F, q, 16.0F, (double) zLevel);
+                } else {
+                    UtilsFX.drawTexturedQuadFull((float) iconX, (float) iconY, (double) zLevel);
+                }
+            } else if (iconResearch.getIcons()[idx] instanceof ItemStack) {
+                RenderHelper.enableGUIStandardItemLighting();
+                GL11.glDisable(2896);
+                GL11.glEnable(32826);
+                GL11.glEnable(2903);
+                GL11.glEnable(2896);
+                Minecraft.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(InventoryUtils.cycleItemStack(iconResearch.getIcons()[idx]), iconX, iconY);
+                GL11.glDisable(2896);
+                GL11.glDepthMask(true);
+                GL11.glEnable(2929);
+            } else if (iconResearch.getIcons()[idx] instanceof String && ((String) iconResearch.getIcons()[idx]).startsWith("focus")) {
+                String k = ((String) iconResearch.getIcons()[idx]).replaceAll("focus:", "");
+                IFocusElement fp = FocusEngine.getElement(k.trim());
+                if (fp != null && fp instanceof FocusNode) {
+                    GuiFocalManipulator.drawPart((FocusNode) fp, iconX + 8, iconY + 8, 24.0F, bw ? 50 : 220, false);
+                }
+            }
+
+            GL11.glDisable(3042);
+            GL11.glPopMatrix();
+        }
+
+    }
+
+    public static void drawForbidden(double x, double y) {
+        int count = FMLClientHandler.instance().getClient().player.ticksExisted;
+        GL11.glPushMatrix();
+        GL11.glTranslated(x, y, 0.0D);
+        UtilsFX.renderQuadCentered(UtilsFX.nodeTexture, 32, 32, 160 + count % 32, 90.0F, 0.33F, 0.0F, 0.44F, 220, 1, 0.9F);
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        GL11.glPopMatrix();
     }
 
     @Override
@@ -724,60 +787,6 @@ public class GuiResearchBrowserR extends GuiScreen {
         GL11.glDisable(2929);
     }
 
-    public static void drawResearchIcon(ResearchEntry iconResearch, int iconX, int iconY, float zLevel, boolean bw) {
-        if (iconResearch.getIcons() != null && iconResearch.getIcons().length > 0) {
-            int idx = (int) (System.currentTimeMillis() / 1000L % (long) iconResearch.getIcons().length);
-            GL11.glPushMatrix();
-            GL11.glEnable(3042);
-            GL11.glBlendFunc(770, 771);
-            if (iconResearch.getIcons()[idx] instanceof ResourceLocation) {
-                Minecraft.getMinecraft().renderEngine.bindTexture((ResourceLocation) iconResearch.getIcons()[idx]);
-                if (bw) {
-                    GL11.glColor4f(0.2F, 0.2F, 0.2F, 1.0F);
-                }
-
-                int w = GL11.glGetTexLevelParameteri(3553, 0, 4096);
-                int h = GL11.glGetTexLevelParameteri(3553, 0, 4097);
-                int m;
-                float q;
-                float idx1;
-                if (h > w && h % w == 0) {
-                    m = h / w;
-                    q = 16.0F / (float) m;
-                    idx1 = (float) (System.currentTimeMillis() / 150L % (long) m) * q;
-                    UtilsFX.drawTexturedQuadF((float) iconX, (float) iconY, 0.0F, idx1, 16.0F, q, (double) zLevel);
-                } else if (w > h && w % h == 0) {
-                    m = w / h;
-                    q = 16.0F / (float) m;
-                    idx1 = (float) (System.currentTimeMillis() / 150L % (long) m) * q;
-                    UtilsFX.drawTexturedQuadF((float) iconX, (float) iconY, idx1, 0.0F, q, 16.0F, (double) zLevel);
-                } else {
-                    UtilsFX.drawTexturedQuadFull((float) iconX, (float) iconY, (double) zLevel);
-                }
-            } else if (iconResearch.getIcons()[idx] instanceof ItemStack) {
-                RenderHelper.enableGUIStandardItemLighting();
-                GL11.glDisable(2896);
-                GL11.glEnable(32826);
-                GL11.glEnable(2903);
-                GL11.glEnable(2896);
-                Minecraft.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(InventoryUtils.cycleItemStack(iconResearch.getIcons()[idx]), iconX, iconY);
-                GL11.glDisable(2896);
-                GL11.glDepthMask(true);
-                GL11.glEnable(2929);
-            } else if (iconResearch.getIcons()[idx] instanceof String && ((String) iconResearch.getIcons()[idx]).startsWith("focus")) {
-                String k = ((String) iconResearch.getIcons()[idx]).replaceAll("focus:", "");
-                IFocusElement fp = FocusEngine.getElement(k.trim());
-                if (fp != null && fp instanceof FocusNode) {
-                    GuiFocalManipulator.drawPart((FocusNode) fp, iconX + 8, iconY + 8, 24.0F, bw ? 50 : 220, false);
-                }
-            }
-
-            GL11.glDisable(3042);
-            GL11.glPopMatrix();
-        }
-
-    }
-
     private void genResearchBackgroundFixedPost(int mx, int my, float par3, int locX, int locY) {
         this.mc.renderEngine.bindTexture(this.tx1);
         GL11.glEnable(3042);
@@ -1100,16 +1109,6 @@ public class GuiResearchBrowserR extends GuiScreen {
         GL11.glAlphaFunc(516, 0.1F);
         GL11.glPopMatrix();
         this.zLevel = zt;
-    }
-
-
-    public static void drawForbidden(double x, double y) {
-        int count = FMLClientHandler.instance().getClient().player.ticksExisted;
-        GL11.glPushMatrix();
-        GL11.glTranslated(x, y, 0.0D);
-        UtilsFX.renderQuadCentered(UtilsFX.nodeTexture, 32, 32, 160 + count % 32, 90.0F, 0.33F, 0.0F, 0.44F, 220, 1, 0.9F);
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        GL11.glPopMatrix();
     }
 
     public void drawTexturedModalRectWithDoubles(float xCoord, float yCoord, double minU, double minV, double maxU, double maxV) {
