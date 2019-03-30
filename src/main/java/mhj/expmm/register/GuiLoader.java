@@ -1,6 +1,8 @@
-package mhj.expmm.client.gui;
+package mhj.expmm.register;
 
 import mhj.expmm.ExperimentalMagic;
+import mhj.expmm.client.gui.GuiNoteBook;
+import mhj.expmm.client.gui.GuiReferenceBookShelf;
 import mhj.expmm.common.container.ContainerNoteBook;
 import mhj.expmm.common.container.ContainerReferenceBookshelf;
 import net.minecraft.entity.player.EntityPlayer;

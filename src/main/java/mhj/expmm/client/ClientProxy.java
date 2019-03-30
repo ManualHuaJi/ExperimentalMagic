@@ -1,7 +1,7 @@
 package mhj.expmm.client;
 
 import mhj.expmm.common.CommonProxy;
-import mhj.expmm.common.block.BlockLoader;
+import mhj.expmm.register.BlockLoader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;

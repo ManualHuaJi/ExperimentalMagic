@@ -1,6 +1,9 @@
-package mhj.expmm.common.lib.research;
+package mhj.expmm.register;
 
 import mhj.expmm.common.block.ReferenceBookcase;
+import mhj.expmm.common.lib.research.ResearchAddenda;
+import mhj.expmm.common.lib.research.ResearchItem;
+import mhj.expmm.common.lib.research.ResearchPage;
 import mhj.expmm.common.lib.research.theorycraft.*;
 import net.minecraftforge.event.CommandEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;

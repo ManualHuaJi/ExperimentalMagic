@@ -1,4 +1,4 @@
-package mhj.expmm.common.item;
+package mhj.expmm.register;
 
 import mhj.expmm.ExperimentalMagic;
 import mhj.expmm.common.item.foci.FocusEffectEmbellishmentDeathMagic;

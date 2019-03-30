@@ -1,4 +1,4 @@
-package mhj.expmm.common.craft;
+package mhj.expmm.register;
 
 /**
  * @Author: ManualHuaJi

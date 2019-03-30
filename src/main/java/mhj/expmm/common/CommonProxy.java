@@ -1,11 +1,8 @@
 package mhj.expmm.common;
 
-import mhj.expmm.client.gui.GuiLoader;
-import mhj.expmm.common.block.BlockLoader;
 import mhj.expmm.common.event.EventLoader;
-import mhj.expmm.common.item.ItemLoader;
-import mhj.expmm.common.lib.research.ResearchLoader;
 import mhj.expmm.common.tile.TileEntityLoader;
+import mhj.expmm.register.*;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -17,6 +14,7 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         TileEntityLoader.registerTileEntities();
         BlockLoader.regitser();
+        BiomeLoader.register();
     }
 
 
@@ -25,6 +23,7 @@ public class CommonProxy {
         new ResearchLoader();
         new GuiLoader();
         new EventLoader();
+
 
     }
 

@@ -1,5 +1,6 @@
-package mhj.expmm.common.block;
+package mhj.expmm.register;
 
+import mhj.expmm.common.block.MirrorAuraItem;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;

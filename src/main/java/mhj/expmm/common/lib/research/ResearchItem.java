@@ -1,5 +1,6 @@
 package mhj.expmm.common.lib.research;
 
+import mhj.expmm.register.ResearchLoader;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import thaumcraft.api.research.ResearchAddendum;
