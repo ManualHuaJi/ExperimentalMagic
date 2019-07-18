@@ -1,0 +1,11 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "transform": "forge:default-block",
+    "model": "expmm:referencase.obj",
+    "textures": {"#texture": "expmm:blocks/referencase"}
+  },
+  "variants": {
+    "inventory": [{}], "normal": [{}]
+  }
+}

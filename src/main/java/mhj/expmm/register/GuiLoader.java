@@ -1,10 +1,8 @@
 package mhj.expmm.register;
 
 import mhj.expmm.ExperimentalMagic;
-import mhj.expmm.client.gui.GuiNoteBook;
-import mhj.expmm.client.gui.GuiReferenceBookShelf;
-import mhj.expmm.common.container.ContainerNoteBook;
-import mhj.expmm.common.container.ContainerReferenceBookshelf;
+import mhj.expmm.gui.GuiReferenceBookShelf;
+import mhj.expmm.gui.container.ContainerReferenceBookshelf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
@@ -28,8 +26,6 @@ public class GuiLoader implements IGuiHandler {
         switch (ID) {
             case 0:
                 return new ContainerReferenceBookshelf();
-            case 1:
-                return new ContainerNoteBook();
             default:
                 return null;
         }
@@ -41,8 +37,6 @@ public class GuiLoader implements IGuiHandler {
         switch (ID) {
             case 0:
                 return new GuiReferenceBookShelf(new ContainerReferenceBookshelf());
-            case 1:
-                return new GuiNoteBook(new ContainerNoteBook());
             default:
                 return null;
         }
