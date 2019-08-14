@@ -1,9 +1,2 @@
-newmtl stuff
-Kd 1.00 1.00 1.00
-map_Kd expmm:blocks/desk_books
-newmtl wood
-Kd 1.00 1.00 1.00
-map_Kd minecraft:blocks/planks_oak
-newmtl carpet
-Kd 1.00 1.00 1.00
-map_Kd minecraft:blocks/wool_colored_white
+# Made in Blockbench 3.0.2
+newmtl none

@@ -13,7 +13,7 @@ import thaumcraft.api.research.theorycraft.TheorycraftCard;
  * @Author: ManualHuaJi
  */
 public class CardChannelVis extends TheorycraftCard {
-    int amt;
+    private int amt;
 
     @Override
     public NBTTagCompound serialize() {
@@ -47,12 +47,12 @@ public class CardChannelVis extends TheorycraftCard {
 
     @Override
     public String getLocalizedName() {
-        return new TextComponentTranslation("card.channelvis.name", new Object[0]).getUnformattedText();
+        return new TextComponentTranslation("card.channelvis.name").getUnformattedText();
     }
 
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.channelvis.text", new Object[]{Integer.valueOf(this.amt)}).getUnformattedText();
+        return new TextComponentTranslation("card.channelvis.text", this.amt).getUnformattedText();
     }
 
     @Override

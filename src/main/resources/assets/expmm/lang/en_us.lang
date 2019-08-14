@@ -1,36 +1,36 @@
 #Misc
-itemGroup.TabEXPMM=实验性魔法
+itemGroup.EXPMM=实验性魔法
 tc.research_category.EXPMM=实验性魔法
 
 #Item
 item.reference.basics.name=神秘学从入门到精通
-item.reference.auromancy.name=unnature（1868年合订版）
+item.reference.auromancy.name=aspect（1868年合订版）
 item.reference.alchemy.name=炼金术经典实例
-item.reference.artifice.name=炼化学前沿报告
+item.reference.artifice.name=物质的本质
 item.reference.infusion.name=奥术注魔的推广应用
-item.reference.golemancy.name=论傀儡的意识改良
+item.reference.golemancy.name=傀儡逻辑解析
 item.reference.eldritch.name=罗玛尼的大锁
 
 
 #Block
-tile.referencase.name=参考资料柜
+tile.advancedResearchTable.name=高级研究台
 
 #Research
 ##Research
 research.EXPMMFIRST.name=实验性魔法
 research.EXPMMFIRST.tile=最初的摸索（复刻轻量版）
-research.EXPMMFIRST.stage.1=有时，具体的行动总会比空想得到更多的知识
+research.EXPMMFIRST.stage.1=你在旅途中发现某位不知名的M姓神秘使留下来的东西，并夹在魔导手册里，虽然不确定这些知识有没有用
 
 ## Theorycarft Cards
 ###General
-card.recollect.name=重拾 %1$s 发现
-card.recollect.text=你重新意识到 %1$s 对你目前的研究的重要性。你重新在 %1$s 方面取得进展并且会抽到与之相关的任何选项，可惜的是你丢失了一些研究的线索。
+card.accept.name=重拾 %1$s 发现
+card.accept.text=你重新意识到 %1$s 对你目前的研究的重要性。你重新在 %1$s 方面取得进展并且会抽到与之相关的任何选项，可惜的是你丢失了一些研究的线索。
 ###Inspiration
-card.memoryflash.name=在记忆深处寻找新的闪光
-card.memoryflash.text=你重新思考了自己的所有发现，你突然对许久之前的研究有了新的见解。获得任意分支最多20点进度，并重获2点灵感和一次额外的抽卡机会
+card.memory.name=在记忆深处寻找新的闪光
+card.memory.text=你重新思考了自己的所有发现，你突然对许久之前的研究有了新的见解。获得任意分支最多20点进度，并重获2点灵感和一次额外的抽卡机会
 
 card.glimpse.name=惊鸿一瞥
-card.glimpse.text=正当你因研究毫无头绪而烦躁时，忽然一样东西吸引了你的注意力，获得 %1$s 点 %2$s 进度，并重获4点灵感
+card.glimpse.text=正当你因研究毫无头绪而烦躁时，忽然一样东西吸引了你的注意力，获得 %1$s 点 奥术注魔 进度，并重获4点灵感
 
 card.practice.name=实践
 card.practice.text=你忽然意识到单纯地在研究台前研究并不会有更大的收获，也许还需要把理论与实践相结合。在当前一个随机的分支获得50点进度。
@@ -39,7 +39,7 @@ card.snooze.name=小憩
 card.snooze.text=你对漫长的研究中感到厌倦，不如先放松一下去寻找新的灵感。总共失去20点进度，并平均分配到每个分支，并重获所有失去的灵感
 
 card.experience.name=经验才是优秀的老师
-card.experience.text=经验亦是知识的来源，即使其不完全准确，亦能在获得经验的过程中逐渐纠正。所有可用分支的进度增加 %1$s 点,并消耗额外的墨水与纸
+card.experience.text=经验亦是知识的来源，即使其不完全准确，亦能在获得经验的过程中逐渐纠正。失去一半的 %1$s 进度，其他所有可用分支的进度增加 %2$s 点,并消耗额外的墨水与纸
 
 
 ### Alchemy
@@ -67,3 +67,6 @@ card.improve.text=你仔细地调整傀儡的机械部件，使得这些小东�
 card.whirling.name=扑朔迷离
 card.whirling.text=来自其他分支的研究启发了你在邪术学方面的研究，你想到了些许模糊的碎片,获得 15 到 30 点 邪术学 进度
 
+
+card.rethinkr.name=反思
+card.rethinkr.text=你退一步重新思考你现有的发现，你抛下无效的结论并产生新的认识。额外消耗墨水与纸并失去10点 %1$s 进度，同时让你重新获得2点灵感。

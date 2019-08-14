@@ -1,9 +1,8 @@
 package mhj.expmm.block;
 
-/**
- * @Author: ManualHuaJi
- */
-public class BlocksEXPMM {
-    public static BlockEXPMM mirrorAura ;
-    public static BlockEXPMM referenceBookcase = new Referencecase();
+import net.minecraft.block.Block;
+import net.minecraft.tileentity.TileEntity;
+
+public class BlocksExpmm extends TileEntity {
+    public static Block advancedResearchTable = new BlockAdvancedResearchTable();
 }

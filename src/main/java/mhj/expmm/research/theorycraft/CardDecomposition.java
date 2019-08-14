@@ -17,10 +17,8 @@ import java.util.Random;
  * @Author: ManualHuaJi
  */
 public class CardDecomposition extends TheorycraftCard {
-    int amt;
-    Aspect aspect1;
-    Aspect aspect2;
-    Aspect aspect3;
+    private int amt;
+    private Aspect aspect1, aspect2, aspect3;
 
     @Override
     public NBTTagCompound serialize() {
@@ -37,6 +35,7 @@ public class CardDecomposition extends TheorycraftCard {
         super.deserialize(nbt);
         aspect1 = Aspect.getAspect(nbt.getString("aspect1"));
         aspect2 = Aspect.getAspect(nbt.getString("aspect2"));
+        aspect3 = Aspect.getAspect(nbt.getString("aspect3"));
         amt = nbt.getInteger("amt");
     }
 
@@ -58,12 +57,12 @@ public class CardDecomposition extends TheorycraftCard {
 
     @Override
     public String getLocalizedName() {
-        return new TextComponentTranslation("card.decomposition.name", new Object[0]).getUnformattedText();
+        return new TextComponentTranslation("card.decomposition.name").getUnformattedText();
     }
 
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.decomposition.text", new Object[]{TextFormatting.BOLD + aspect3.getName() + TextFormatting.RESET, Integer.valueOf(amt)}).
+        return new TextComponentTranslation("card.decomposition.text", TextFormatting.BOLD + aspect3.getName() + TextFormatting.RESET, amt).
                 getUnformattedText();
     }
 

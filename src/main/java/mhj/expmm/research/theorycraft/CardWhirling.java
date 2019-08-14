@@ -22,12 +22,12 @@ public class CardWhirling extends TheorycraftCard {
 
     @Override
     public String getLocalizedName() {
-        return new TextComponentTranslation("card.whirling.name", new Object[0]).getUnformattedText();
+        return new TextComponentTranslation("card.whirling.name").getUnformattedText();
     }
 
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.whirling.text", new Object[0]).getUnformattedText();
+        return new TextComponentTranslation("card.whirling.text").getUnformattedText();
     }
 
     @Override

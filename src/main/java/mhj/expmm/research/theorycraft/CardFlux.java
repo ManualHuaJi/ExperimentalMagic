@@ -17,43 +17,20 @@ import java.util.Random;
  * @Author: ManualHuaJi
  */
 public class CardFlux extends TheorycraftCard {
-    Aspect aspect = Aspect.FLUX;
-    ItemStack stack = ItemStack.EMPTY;
-    ItemStack options[] = new ItemStack[]{new ItemStack(ThaumcraftApiHelper.makeCrystal(this.aspect).getItem())
-    };
-
-    @Override
-    public NBTTagCompound serialize() {
-        NBTTagCompound nbt = super.serialize();
-        nbt.setString("aspect", this.aspect.getTag());
-
-        return nbt;
-    }
-
-    @Override
-    public void deserialize(NBTTagCompound nbt) {
-        super.deserialize(nbt);
-        this.aspect = Aspect.getAspect(nbt.getString("aspect"));
-
-    }
-
     @Override
     public int getInspirationCost() {
         return 1;
     }
 
     @Override
-    public boolean initialize(EntityPlayer player, ResearchTableData data) {
-        Random r = new Random(getSeed());
-        this.stack = options[r.nextInt(options.length)].copy();
-        return (this.stack != null);
-    }
-
-    @Override
     public ItemStack[] getRequiredItems() {
-        return new ItemStack[]{
-                ItemPhial.makeFilledPhial(Aspect.FLUX), ThaumcraftApiHelper.makeCrystal(Aspect.FLUX)
-        };
+        Random r = new Random();
+        boolean a = r.nextBoolean();
+        if (a) {
+            return new ItemStack[]{ThaumcraftApiHelper.makeCrystal(Aspect.FLUX)};
+        } else {
+            return new ItemStack[]{ItemPhial.makeFilledPhial(Aspect.FLUX)};
+        }
     }
 
     @Override
@@ -63,17 +40,16 @@ public class CardFlux extends TheorycraftCard {
 
     @Override
     public String getLocalizedName() {
-        return new TextComponentTranslation("card.flux.name", new Object[0]).getUnformattedText();
+        return new TextComponentTranslation("card.flux.name").getUnformattedText();
     }
 
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.flux.text", new Object[0]).getUnformattedText();
+        return new TextComponentTranslation("card.flux.text").getUnformattedText();
     }
 
     @Override
     public boolean activate(EntityPlayer player, ResearchTableData data) {
-
         data.addTotal("AUROMANCY", 25);
         return true;
     }

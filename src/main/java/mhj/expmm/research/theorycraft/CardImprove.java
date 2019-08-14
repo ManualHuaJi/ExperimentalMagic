@@ -22,12 +22,12 @@ public class CardImprove extends TheorycraftCard {
 
     @Override
     public String getLocalizedName() {
-        return new TextComponentTranslation("card.improve.name", new Object[0]).getUnformattedText();
+        return new TextComponentTranslation("card.improve.name").getUnformattedText();
     }
 
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.improve.text", new Object[0]).getUnformattedText();
+        return new TextComponentTranslation("card.improve.text").getUnformattedText();
     }
 
     @Override

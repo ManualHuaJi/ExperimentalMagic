@@ -1,6 +1,5 @@
 package mhj.expmm.register;
 
-import mhj.expmm.block.Referencecase;
 import mhj.expmm.research.ResearchAddenda;
 import mhj.expmm.research.ResearchItem;
 import mhj.expmm.research.ResearchPage;
@@ -8,6 +7,7 @@ import mhj.expmm.research.theorycraft.*;
 import net.minecraftforge.event.CommandEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thaumcraft.api.research.ResearchEntry;
+import thaumcraft.api.research.theorycraft.CardRethink;
 import thaumcraft.api.research.theorycraft.TheorycraftManager;
 import thaumcraft.common.lib.CommandThaumcraft;
 import thaumcraft.common.lib.research.ResearchManager;
@@ -16,18 +16,29 @@ import java.lang.reflect.Method;
 
 public class ResearchLoader {
     public ResearchLoader() {
+        TheorycraftManager.cards.remove(CardRethink.class.getName());
         initCard();
         init();
     }
 
-    public static Class[] card = {
-            CardChannelVis.class, CardDifferent.class, CardFlux.class, CardGlimpse.class, CardDecomposition.class, CardImprove.class, CardExperience.class, CardMemoryFlash.class, CardWhirling.class, CardRecollect.class
+    private static Class[] card = {
+            CardChannelVis.class,
+            CardDecomposition.class,
+            CardDifferent.class,
+            CardExperience.class,
+            CardFlux.class,
+            CardGlimpse.class,
+            CardImprove.class,
+            CardMemory.class,
+            CardAccept.class,
+            CardRethinkRevision.class,
+            CardWhirling.class,
+
     };
 
-    public static void initCard() {
-        TheorycraftManager.registerAid(new Referencecase());
-        for (Class cardclass : card) {
-            TheorycraftManager.registerCard(cardclass);
+    private static void initCard() {
+        for (Class clazz : card) {
+            TheorycraftManager.registerCard(clazz);
         }
     }
 
@@ -40,73 +51,6 @@ public class ResearchLoader {
                 .setStages(new RP()
                         .setText("research.EXPMMFIRST.stage.1")
                         .registerResearchPages()).registerResearchItem();
-
-       /* new RI().setBaseInfo("EFDEADTHMAGIC", 0, -2)
-                .setIcons("focus:expmm.EF.DEATHMAGIC")
-                .setParents("BASEAUROMANCY", "EXPMMFIRST")
-                .setReverse()
-                .setStages(new RP()
-                        .setText("research.EFDEADTHMAGIC.pages.1")
-                        .setKnow(new ResearchStage.Knowledge(IPlayerKnowledge.EnumKnowledgeType.THEORY, getResearchCategory("AUROMANCY"), 2))
-                        .registerResearchPages())
-                .registerResearchItem();
-*/
-      /*  new RI().setBaseInfo("EFGOLDENEYE", 2, -3)
-//                .setIcons("expmm:textures/item/foci/goldeneye.png")
-                .setParents("EFDEADTHMAGIC")
-                .setReverse()
-                .setStages(new RP()
-                        .setText("research.EFGOLDENEYE.pages.1")
-                        .setKnow(new ResearchStage.Knowledge(IPlayerKnowledge.EnumKnowledgeType.THEORY, getResearchCategory("AUROMANCY"), 2))
-                        .registerResearchPages()).registerResearchItem();
-*/
-       /* new RI().setBaseInfo("EFMINDSEYE", -2, 3)
-//                .setIcons("expmm:textures/item/foci/goldeneye.png")
-                .setParents("EXPMMFIRST")
-                .setReverse()
-                .setStages(new RP()
-                        .setText("research.EFMINDSEYE.pages.1")
-                        .setKnow(new ResearchStage.Knowledge(IPlayerKnowledge.EnumKnowledgeType.THEORY, getResearchCategory("AUROMANCY"), 2))
-                        .registerResearchPages()).registerResearchItem();
-*/
-   /*     new RI().setBaseInfo("EFFOGGYNIGHT", 2, 4)
-//                .setIcons("")
-                .setParents("EXPMMFIRST")
-                .setReverse()
-                .setStages(new RP()
-                        .setText("research.EFFOGGYNIGHT.pages.1")
-                        .setKnow(new ResearchStage.Knowledge(IPlayerKnowledge.EnumKnowledgeType.THEORY, getResearchCategory("AUROMANCY"), 2))
-                        .registerResearchPages()) .registerResearchItem();;
-*/
-       /* new RI().setBaseInfo("EFRUSTYMEMORY", -2, 4)
-//                .setIcons("")
-                .setParents("EXPMMFIRST")
-                .setReverse()
-                .setStages(new RP()
-                        .setText("research.EFRUSTYMEMORY.pages.1")
-                        .setKnow(new ResearchStage.Knowledge(IPlayerKnowledge.EnumKnowledgeType.THEORY, getResearchCategory("AUROMANCY"), 2))
-                        .registerResearchPages()) .registerResearchItem();;
-*/
-
-        /*new RI().setBaseInfo("EFAFTERIMAGE", -2, 5)
-//                .setIcons("")
-                .setParents("EXPMMFIRST")
-                .setReverse()
-                .setStages(new RP()
-                        .setText("research.EFAFTERIMAGE.pages.1")
-                        .setKnow(new ResearchStage.Knowledge(IPlayerKnowledge.EnumKnowledgeType.THEORY, getResearchCategory("AUROMANCY"), 2))
-                        .registerResearchPages()) .registerResearchItem();;
-*/
-/*
-        new RI().setBaseInfo("EFCELESTIAL", -2, 6)
-//                .setIcons("")
-                .setParents("EXPMMFIRST")
-                .setReverse()
-                .setStages(new RP()
-                        .setText("research.EFCELESTIAL.pages.1")
-                        .setKnow(new ResearchStage.Knowledge(IPlayerKnowledge.EnumKnowledgeType.THEORY, getResearchCategory("AUROMANCY"), 2))
-                        .registerResearchPages()) .registerResearchItem();;
-*/
     }
 
     private static class RA extends ResearchAddenda {
@@ -135,12 +79,12 @@ public class ResearchLoader {
             try {
                 addResearchToCategory = ResearchManager.class.getDeclaredMethod("addResearchToCategory", ResearchEntry.class);
                 addResearchToCategory.setAccessible(true);
-            } catch (NoSuchMethodException | SecurityException e) {
+            } catch (NoSuchMethodException | SecurityException ignored) {
             }
         }
         try {
             addResearchToCategory.invoke(null, ri);
-        } catch (Throwable e) {
+        } catch (Throwable ignored) {
         }
     }
 

@@ -2,7 +2,6 @@ package mhj.expmm.research.theorycraft;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
 import thaumcraft.api.capabilities.IPlayerKnowledge;
 import thaumcraft.api.capabilities.ThaumcraftCapabilities;
@@ -14,7 +13,7 @@ import thaumcraft.api.research.theorycraft.TheorycraftCard;
 /**
  * @Author: ManualHuaJi
  */
-public class CardMemoryFlash extends TheorycraftCard {
+public class CardMemory extends TheorycraftCard {
 
     @Override
     public NBTTagCompound serialize() {
@@ -39,12 +38,12 @@ public class CardMemoryFlash extends TheorycraftCard {
 
     @Override
     public String getLocalizedName() {
-        return new TextComponentTranslation("card.memoryflash.name", new Object[0]).getUnformattedText();
+        return new TextComponentTranslation("card.memory.name").getUnformattedText();
     }
 
     @Override
     public String getLocalizedText() {
-        return new TextComponentTranslation("card.memoryflash.text", new Object[0]).getUnformattedText();
+        return new TextComponentTranslation("card.memory.text").getUnformattedText();
     }
 
 
