@@ -1,5 +1,6 @@
 package mhj.expmm.gui.container;
 
+import mhj.expmm.item.ItemReference;
 import mhj.expmm.tile.TileAdvancedResearchTable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -29,6 +30,7 @@ public class ContainerAdvResearchTable extends Container {
         this.aspects = (String[]) Aspect.aspects.keySet().toArray(new String[0]);
         addSlotToContainer(new SlotLimitedByClass(thaumcraft.api.items.IScribeTools.class, iinventory1, 0, 16, 15));
         addSlotToContainer(new SlotLimitedByItemstack(new ItemStack(Items.PAPER), iinventory1, 1, 224, 16));
+        addSlotToContainer(new SlotLimitedByClass(ItemReference.class, iinventory1, 2, 224, 41));
         bindPlayerInventory(iinventory);
     }
 

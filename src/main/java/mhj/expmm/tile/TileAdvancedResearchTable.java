@@ -20,11 +20,9 @@ import thaumcraft.api.research.ResearchCategory;
 import thaumcraft.api.research.theorycraft.ITheorycraftAid;
 import thaumcraft.api.research.theorycraft.ResearchTableData;
 import thaumcraft.api.research.theorycraft.TheorycraftManager;
-import thaumcraft.client.gui.GuiResearchTable;
 import thaumcraft.common.lib.SoundsTC;
 import thaumcraft.common.lib.utils.EntityUtils;
 import thaumcraft.common.tiles.TileThaumcraftInventory;
-import thaumcraft.common.tiles.crafting.TileResearchTable;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -33,9 +31,8 @@ public class TileAdvancedResearchTable extends TileThaumcraftInventory {
     public ResearchTableData data;
 
     public TileAdvancedResearchTable() {
-        super(2);
+        super(4);
         this.syncedSlots = new int[]{0, 1};
-
     }
 
     public void readSyncNBT(NBTTagCompound nbttagcompound) {
