@@ -33,6 +33,7 @@ public class TileAdvancedResearchTable extends TileThaumcraftInventory {
     public TileAdvancedResearchTable() {
         super(4);
         this.syncedSlots = new int[]{0, 1};
+
     }
 
     public void readSyncNBT(NBTTagCompound nbttagcompound) {

@@ -12,6 +12,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
@@ -50,6 +51,7 @@ public class GuiAdvResearchTable extends GuiContainer {
     ResourceLocation txPaper;
     ResourceLocation txPaperGilded;
     ResourceLocation txQuestion;
+    ResourceLocation txAdvBackground;
     ResearchTableData.CardChoice lastDraw;
     float[] cardHover;
     float[] cardZoomOut;
@@ -62,14 +64,16 @@ public class GuiAdvResearchTable extends GuiContainer {
     int dummyInspirationStart;
     Set<String> currentAids;
     Set<String> selectedAids;
-    GuiImageButton buttonCreate;
+    public GuiImageButton buttonCreate;
     GuiImageButton buttonComplete;
     GuiImageButton buttonScrap;
     public ArrayList<ResearchTableData.CardChoice> cardChoices;
+    Slot slot;
 
     public GuiAdvResearchTable(final EntityPlayer player, final TileAdvancedResearchTable e) {
         super(new ContainerAdvResearchTable(player.inventory, e));
         this.txBackground = new ResourceLocation("thaumcraft", "textures/gui/gui_research_table.png");
+        this.txAdvBackground = new ResourceLocation("expmm", "textures/gui/gui_advanced_research_table.png");
         this.txBase = new ResourceLocation("thaumcraft", "textures/gui/gui_base.png");
         this.txPaper = new ResourceLocation("thaumcraft", "textures/gui/paper.png");
         this.txPaperGilded = new ResourceLocation("thaumcraft", "textures/gui/papergilded.png");
@@ -95,6 +99,7 @@ public class GuiAdvResearchTable extends GuiContainer {
         this.galFontRenderer = FMLClientHandler.instance().getClient().standardGalacticFontRenderer;
         this.username = player.getName();
         this.player = player;
+        this.slot = this.inventorySlots.inventorySlots.get(2);
         if (this.table.data != null) {
             for (final String cat : this.table.data.categoryTotals.keySet()) {
                 this.tempCatTotals.put(cat, this.table.data.categoryTotals.get(cat));
@@ -104,12 +109,13 @@ public class GuiAdvResearchTable extends GuiContainer {
         }
     }
 
+    public boolean getVisible() {
+        return this.buttonCreate.visible;
+    }
+
     private void syncFromTableChoices() {
         this.cardChoices.clear();
         for (final ResearchTableData.CardChoice cc : this.table.data.cardChoices) {
-            if (cc.card instanceof CardScripting) {
-                continue;
-            }
             this.cardChoices.add(cc);
         }
     }
@@ -193,7 +199,11 @@ public class GuiAdvResearchTable extends GuiContainer {
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
-        this.mc.renderEngine.bindTexture(this.txBackground);
+        if (slot.isEnabled()) {
+            this.mc.renderEngine.bindTexture(this.txAdvBackground);
+        } else {
+            this.mc.renderEngine.bindTexture(this.txBackground);
+        }
         this.drawTexturedModalRect(xx, yy, 0, 0, 255, 255);
         this.fontRenderer.drawString(" ", 0, 0, 0);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);

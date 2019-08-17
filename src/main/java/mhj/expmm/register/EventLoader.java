@@ -1,6 +1,7 @@
 package mhj.expmm.register;
 
 import mhj.expmm.gui.GuiResearchBrowserRevision;
+import mhj.expmm.gui.container.ContainerAdvResearchTable;
 import mhj.expmm.register.GuiLoader;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -14,8 +15,8 @@ public class EventLoader {
 
     public EventLoader() {
         MinecraftForge.EVENT_BUS.register(new GuiLoader());
-    }
 
+    }
 
 
 }

@@ -46,6 +46,11 @@ public class CardRethinkRevision extends TheorycraftCard {
         return -2;
     }
 
+    @Override
+    public boolean isAidOnly() {
+        return true;
+    }
+
     public String getLocalizedName() {
         return new TextComponentTranslation("card.rethinkr.name").getUnformattedText();
     }

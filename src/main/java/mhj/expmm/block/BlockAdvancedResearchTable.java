@@ -18,6 +18,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.client.fx.ParticleEngine;
 import thaumcraft.client.fx.particles.FXGeneric;
+import thaumcraft.common.lib.utils.InventoryUtils;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -29,6 +30,12 @@ public class BlockAdvancedResearchTable extends Block implements ITileEntityProv
         this.setSoundType(SoundType.WOOD);
     }
 
+    @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        InventoryUtils.dropItems(worldIn, pos);
+        super.breakBlock(worldIn, pos, state);
+        worldIn.removeTileEntity(pos);
+    }
 
     public int damageDropped(IBlockState state) {
         return 0;

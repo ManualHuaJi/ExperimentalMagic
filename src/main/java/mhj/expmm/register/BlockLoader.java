@@ -9,14 +9,13 @@ import net.minecraft.item.ItemBlock;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 
 @Mod.EventBusSubscriber(modid = ExperimentalMagic.MODID)
-public class BlockRegister {
-    @SubscribeEvent
+public class BlockLoader {
+//    @SubscribeEvent
     public static void register(RegistryEvent.Register<Block> event) {
         initBlock(event.getRegistry());
         initTileEntity();

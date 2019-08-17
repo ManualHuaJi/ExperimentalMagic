@@ -1,13 +1,20 @@
 package mhj.expmm.gui.container;
 
+import mhj.expmm.gui.GuiAdvResearchTable;
 import mhj.expmm.item.ItemReference;
 import mhj.expmm.tile.TileAdvancedResearchTable;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.event.GuiScreenEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.research.theorycraft.ResearchTableData;
 import thaumcraft.api.research.theorycraft.TheorycraftCard;
@@ -19,19 +26,38 @@ import java.util.HashMap;
 
 public class ContainerAdvResearchTable extends Container {
     public TileAdvancedResearchTable tileEntity;
-
+    GuiAdvResearchTable gui;
     String[] aspects;
 
     EntityPlayer player;
 
     public ContainerAdvResearchTable(InventoryPlayer iinventory, TileAdvancedResearchTable iinventory1) {
+        MinecraftForge.EVENT_BUS.register(this);
         this.player = iinventory.player;
         this.tileEntity = iinventory1;
         this.aspects = (String[]) Aspect.aspects.keySet().toArray(new String[0]);
         addSlotToContainer(new SlotLimitedByClass(thaumcraft.api.items.IScribeTools.class, iinventory1, 0, 16, 15));
         addSlotToContainer(new SlotLimitedByItemstack(new ItemStack(Items.PAPER), iinventory1, 1, 224, 16));
-        addSlotToContainer(new SlotLimitedByClass(ItemReference.class, iinventory1, 2, 224, 41));
+        addSlotToContainer(new SlotLimitedByClass(ItemReference.class, iinventory1, 2, 224, 41) {
+
+            @Override
+            @SideOnly(Side.CLIENT)
+            public boolean isEnabled() {
+                if (gui.buttonCreate.visible) {
+                    return true;
+                }
+                return false;
+            }
+        });
         bindPlayerInventory(iinventory);
+    }
+
+    @SubscribeEvent
+    public void getGui(GuiScreenEvent event) {
+        if (event.getGui() instanceof GuiAdvResearchTable) {
+            this.gui = (GuiAdvResearchTable) event.getGui();
+        }
+
     }
 
     protected void bindPlayerInventory(InventoryPlayer inventoryPlayer) {
