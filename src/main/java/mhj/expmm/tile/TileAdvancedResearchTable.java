@@ -1,6 +1,7 @@
 package mhj.expmm.tile;
 
 import com.sun.istack.internal.NotNull;
+import mhj.expmm.item.ItemsExpmm;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -88,11 +89,17 @@ public class TileAdvancedResearchTable extends TileThaumcraftInventory {
             if (i > this.data.penaltyStart) {
                 tot = (int) Math.max(1.0D, (double) tot * 0.666666667D);
             }
-
             ResearchCategory rc = ResearchCategories.getResearchCategory(cat);
-            ThaumcraftApi.internalMethods.addKnowledge(player, IPlayerKnowledge.EnumKnowledgeType.THEORY, rc, tot);
+            if (rc == ResearchCategories.getResearchCategory("AUROMANCY") && this.getStackInSlot(2).getItem() == new ItemStack(ItemsExpmm.itemReference, 1, 1).getItem()) {
+                int totl = tot / 2;
+                ThaumcraftApi.internalMethods.addKnowledge(player, IPlayerKnowledge.EnumKnowledgeType.THEORY, rc, totl);
+                ThaumcraftApi.internalMethods.addKnowledge(player, IPlayerKnowledge.EnumKnowledgeType.OBSERVATION, rc, totl);
+            }
+            if (rc == ResearchCategories.getResearchCategory("ARTIFICE") && this.getStackInSlot(2).getItem() == new ItemStack(ItemsExpmm.itemReference, 1, 3).getItem()) {
+            } else {
+                ThaumcraftApi.internalMethods.addKnowledge(player, IPlayerKnowledge.EnumKnowledgeType.OBSERVATION, rc, tot);
+            }
         }
-
         this.data = null;
     }
 

@@ -1,17 +1,13 @@
 package mhj.expmm.register;
 
-import mhj.expmm.gui.GuiResearchBrowserRevision;
-import mhj.expmm.gui.container.ContainerAdvResearchTable;
-import mhj.expmm.register.GuiLoader;
-import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import thaumcraft.client.gui.GuiResearchBrowser;
+import net.minecraftforge.fml.common.eventhandler.EventBus;
 
 /**
  * @Author: ManualHuaJi
  */
 public class EventLoader {
+    public static final EventBus EVENT_BUS = new EventBus();
 
     public EventLoader() {
         MinecraftForge.EVENT_BUS.register(new GuiLoader());

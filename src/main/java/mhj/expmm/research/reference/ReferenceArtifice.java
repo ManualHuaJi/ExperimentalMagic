@@ -16,8 +16,4 @@ public class ReferenceArtifice implements IReference {
 
     }
 
-    @Override
-    public Class<TheorycraftCard>[] getCards() {
-        return new Class[0];
-    }
 }

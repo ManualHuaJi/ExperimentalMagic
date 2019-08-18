@@ -3,7 +3,6 @@ package mhj.expmm.gui.container;
 import mhj.expmm.gui.GuiAdvResearchTable;
 import mhj.expmm.item.ItemReference;
 import mhj.expmm.tile.TileAdvancedResearchTable;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Items;

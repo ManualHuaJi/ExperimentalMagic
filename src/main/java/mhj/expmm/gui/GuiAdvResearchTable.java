@@ -31,7 +31,6 @@ import thaumcraft.client.fx.FXDispatcher;
 import thaumcraft.client.gui.plugins.GuiImageButton;
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.common.lib.SoundsTC;
-import thaumcraft.common.lib.research.theorycraft.CardScripting;
 
 import java.io.IOException;
 import java.util.*;

@@ -1,14 +1,15 @@
 package mhj.expmm.research.reference;
 
 import mhj.expmm.api.IReference;
+import mhj.expmm.item.ItemsExpmm;
 import mhj.expmm.tile.TileAdvancedResearchTable;
 import net.minecraft.item.Item;
-import thaumcraft.api.research.theorycraft.TheorycraftCard;
+import net.minecraft.item.ItemStack;
 
 public class ReferenceEldritch implements IReference {
     @Override
     public Item getReference() {
-        return null;
+        return new ItemStack(ItemsExpmm.itemReference, 1, 5).getItem();
     }
 
     @Override
@@ -16,8 +17,4 @@ public class ReferenceEldritch implements IReference {
 
     }
 
-    @Override
-    public Class<TheorycraftCard>[] getCards() {
-        return new Class[0];
-    }
 }

@@ -4,6 +4,7 @@ import mhj.expmm.tile.TileAdvancedResearchTable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextComponentTranslation;
+
 import thaumcraft.api.research.theorycraft.ResearchTableData;
 import thaumcraft.api.research.theorycraft.TheorycraftCard;
 import thaumcraft.common.tiles.crafting.TileResearchTable;
@@ -44,11 +45,6 @@ public class CardRethinkRevision extends TheorycraftCard {
 
     public int getInspirationCost() {
         return -2;
-    }
-
-    @Override
-    public boolean isAidOnly() {
-        return true;
     }
 
     public String getLocalizedName() {

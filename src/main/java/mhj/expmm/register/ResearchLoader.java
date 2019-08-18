@@ -32,8 +32,9 @@ public class ResearchLoader {
         ScanningManager.addScannableThing(new ScanItem("!RAU", new ItemStack(ItemsExpmm.itemReference, 1, 1)));
         ScanningManager.addScannableThing(new ScanItem("!RAL", new ItemStack(ItemsExpmm.itemReference, 1, 2)));
         ScanningManager.addScannableThing(new ScanItem("!RAR", new ItemStack(ItemsExpmm.itemReference, 1, 3)));
-        ScanningManager.addScannableThing(new ScanItem("!RGO", new ItemStack(ItemsExpmm.itemReference, 1, 4)));
-        ScanningManager.addScannableThing(new ScanItem("!REL", new ItemStack(ItemsExpmm.itemReference, 1, 5)));
+        ScanningManager.addScannableThing(new ScanItem("!RIN", new ItemStack(ItemsExpmm.itemReference, 1, 4)));
+        ScanningManager.addScannableThing(new ScanItem("!RGO", new ItemStack(ItemsExpmm.itemReference, 1, 5)));
+        ScanningManager.addScannableThing(new ScanItem("!REL", new ItemStack(ItemsExpmm.itemReference, 1, 6)));
 
     }
 
@@ -48,7 +49,6 @@ public class ResearchLoader {
             CardMemory.class,
             CardAccept.class,
             CardWhirling.class,
-            CardRethinkRevision.class,
             CardScriptingRevision.class
     };
 
@@ -78,6 +78,7 @@ public class ResearchLoader {
                         new RA().setText("research.!Reference.addenda.au").setResearch("!RAU").registerResearchAddenda(),
                         new RA().setText("research.!Reference.addenda.al").setResearch("!RAL").registerResearchAddenda(),
                         new RA().setText("research.!Reference.addenda.ar").setResearch("!RAR").registerResearchAddenda(),
+                        new RA().setText("research.!Reference.addenda.ar").setResearch("!RIN").registerResearchAddenda(),
                         new RA().setText("research.!Reference.addenda.go").setResearch("!RGO").registerResearchAddenda(),
                         new RA().setText("research.!Reference.addenda.el").setResearch("!REL").registerResearchAddenda()
                 ).registerResearchItem();
