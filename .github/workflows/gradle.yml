@@ -14,7 +14,7 @@ jobs:
       with:
         java-version: 1.8
     - name: EnvPre
-      run: ./gradlew setupCIWorkspace -i
+      run: ./gradlew setupCIWorkspace.sh -i
     - name: Build with Gradle
       run: ./gradlew build -i
     
